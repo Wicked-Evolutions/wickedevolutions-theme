@@ -1,0 +1,21 @@
+/**
+ * Wicked Evolutions — Custom Styles
+ * CSS that block settings can't express.
+ */
+
+/* Smooth scrolling for TOC anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Code block overflow */
+.wp-block-code code {
+    overflow-x: auto;
+    display: block;
+}
+
+/* Selection color */
+::selection {
+    background-color: var(--wp--preset--color--accent-green);
+    color: var(--wp--preset--color--base);
+}

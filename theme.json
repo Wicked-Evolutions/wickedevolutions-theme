@@ -1,0 +1,135 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 3,
+    "settings": {
+        "appearanceTools": true,
+        "layout": {
+            "contentSize": "800px",
+            "wideSize": "1200px"
+        },
+        "color": {
+            "palette": [
+                { "slug": "base", "color": "#111111", "name": "Base" },
+                { "slug": "contrast", "color": "#E0DDD5", "name": "Contrast" },
+                { "slug": "accent-green", "color": "#22c55e", "name": "Accent Green" },
+                { "slug": "accent-yellow", "color": "#FFEE58", "name": "Accent Yellow" },
+                { "slug": "accent-purple", "color": "#a78bfa", "name": "Accent Purple" }
+            ]
+        },
+        "typography": {
+            "fontFamilies": [
+                {
+                    "fontFamily": "Syne, sans-serif",
+                    "name": "Syne",
+                    "slug": "syne",
+                    "fontFace": [
+                        {
+                            "fontFamily": "Syne",
+                            "fontWeight": "400 800",
+                            "fontStyle": "normal",
+                            "src": ["file:./assets/fonts/Syne-Variable.woff2"]
+                        }
+                    ]
+                },
+                {
+                    "fontFamily": "'JetBrains Mono', monospace",
+                    "name": "JetBrains Mono",
+                    "slug": "jetbrains-mono",
+                    "fontFace": [
+                        {
+                            "fontFamily": "JetBrains Mono",
+                            "fontWeight": "400 700",
+                            "fontStyle": "normal",
+                            "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"]
+                        }
+                    ]
+                }
+            ]
+        },
+        "spacing": {
+            "units": ["px", "rem", "%", "vw"]
+        }
+    },
+    "styles": {
+        "color": {
+            "background": "var(--wp--preset--color--base)",
+            "text": "var(--wp--preset--color--contrast)"
+        },
+        "typography": {
+            "fontFamily": "var(--wp--preset--font-family--syne)",
+            "fontSize": "18px",
+            "lineHeight": "1.75"
+        },
+        "elements": {
+            "link": {
+                "color": {
+                    "text": "var(--wp--preset--color--accent-green)"
+                },
+                ":hover": {
+                    "color": {
+                        "text": "var(--wp--preset--color--accent-yellow)"
+                    }
+                }
+            },
+            "heading": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--syne)",
+                    "fontWeight": "700"
+                },
+                "color": {
+                    "text": "var(--wp--preset--color--contrast)"
+                }
+            },
+            "h1": {
+                "typography": {
+                    "fontSize": "clamp(2rem, 4vw, 3rem)"
+                }
+            },
+            "h2": {
+                "typography": {
+                    "fontSize": "clamp(1.5rem, 3vw, 2.25rem)"
+                }
+            },
+            "h3": {
+                "typography": {
+                    "fontSize": "clamp(1.25rem, 2.5vw, 1.75rem)"
+                }
+            }
+        },
+        "blocks": {
+            "core/code": {
+                "typography": {
+                    "fontFamily": "var(--wp--preset--font-family--jetbrains-mono)",
+                    "fontSize": "15px"
+                },
+                "color": {
+                    "background": "#1a1a1a",
+                    "text": "var(--wp--preset--color--accent-green)"
+                },
+                "border": {
+                    "radius": "6px"
+                },
+                "spacing": {
+                    "padding": {
+                        "top": "1.5rem",
+                        "right": "1.5rem",
+                        "bottom": "1.5rem",
+                        "left": "1.5rem"
+                    }
+                }
+            }
+        }
+    },
+    "customTemplates": [
+        {
+            "name": "docs-landing",
+            "title": "Docs Landing",
+            "postTypes": ["page"]
+        }
+    ],
+    "templateParts": [
+        { "name": "header", "title": "Header", "area": "header" },
+        { "name": "footer", "title": "Footer", "area": "footer" },
+        { "name": "sidebar", "title": "Sidebar", "area": "uncategorized" }
+    ]
+}
