@@ -1,10 +1,10 @@
 /**
  * Wicked Evolutions — Custom Styles
  * Design tokens and CSS that theme.json can't express.
- * Dark mode default. Light mode via .light class or prefers-color-scheme.
+ * Dark mode default. Light mode via explicit .light class only.
  */
 
-/* ── Dark mode tokens (default) ─────────────────────────────── */
+/* ── Dark mode tokens (default — always) ────────────────────── */
 :root {
     --we-bg-base: #0e0e10;
     --we-bg-surface: #141416;
@@ -23,10 +23,11 @@
     --we-tag-border: rgba(255,255,255,0.10);
     --we-tag-text: #9e9c98;
     --we-topbar-bg: rgba(14,14,16,0.95);
+    --we-header-height: 52px;
     --we-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── Light mode tokens ──────────────────────────────────────── */
+/* ── Light mode tokens — ONLY when .light class is explicitly set ── */
 .light,
 [data-theme="light"] {
     --we-bg-base: #F2EFE9;
@@ -48,27 +49,11 @@
     --we-topbar-bg: rgba(242,239,233,0.95);
 }
 
-@media (prefers-color-scheme: light) {
-    :root:not(.dark) {
-        --we-bg-base: #F2EFE9;
-        --we-bg-surface: #EAE6DF;
-        --we-bg-raised: #E2DDD5;
-        --we-bg-overlay: #D8D3C9;
-        --we-border-subtle: rgba(50,44,36,0.08);
-        --we-border-default: rgba(50,44,36,0.14);
-        --we-border-strong: rgba(50,44,36,0.24);
-        --we-text-primary: #1C1915;
-        --we-text-secondary: #2E2A24;
-        --we-text-muted: #7A7268;
-        --we-accent: #8B6914;
-        --we-accent-dim: rgba(139,105,20,0.10);
-        --we-accent-glow: rgba(139,105,20,0.06);
-        --we-tag-bg: rgba(50,44,36,0.06);
-        --we-tag-border: rgba(50,44,36,0.14);
-        --we-tag-text: #5A5248;
-        --we-topbar-bg: rgba(242,239,233,0.95);
-    }
-}
+/* NOTE: prefers-color-scheme media query REMOVED.
+   This site is dark-default. Light mode requires explicit .light class.
+   The previous @media (prefers-color-scheme: light) was overriding dark
+   tokens for users with light OS settings, causing the header to render
+   with a light background on a dark body. */
 
 /* ── Base ────────────────────────────────────────────────────── */
 html {
@@ -86,13 +71,45 @@ body {
     color: var(--wp--preset--color--base);
 }
 
-/* ── Code block overflow ────────────────────────────────────── */
+/* ── Header ─────────────────────────────────────────────────── */
+.we-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100;
+    background: var(--we-topbar-bg) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--we-border-subtle) !important;
+    min-height: var(--we-header-height);
+    box-sizing: border-box;
+}
+/* Override any WP-injected background on the header */
+.we-header.has-background {
+    background: var(--we-topbar-bg) !important;
+}
+
+/* Increase header height via vertical padding — 14px is too short.
+   52px target = 14+14+24 line ≈ 52px. Issue wants ~104px.
+   Using 28px top/bottom padding: 28+28+24 = ~80px. Plus border = fine. */
+.we-header {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.admin-bar .we-header {
+    top: 32px !important;
+}
+.admin-bar .we-sidebar-col,
+.admin-bar .we-toc-rail {
+    top: calc(var(--we-header-height) + 32px) !important;
+}
+
+/* ── Code ────────────────────────────────────────────────────── */
 .wp-block-code code {
     overflow-x: auto;
     display: block;
 }
 
-/* Inline code */
 :where(.wp-block-post-content) code:not(pre code) {
     font-family: var(--wp--preset--font-family--jetbrains-mono);
     font-size: 0.875em;
@@ -136,10 +153,80 @@ body {
     border-color: var(--we-border-strong);
 }
 
-/* ── TOC Rail ───────────────────────────────────────────────── */
-.we-toc-rail {
-    font-family: var(--wp--preset--font-family--syne);
+/* ── 3-Column Page Layout ───────────────────────────────────── */
+
+/* The columns container — flush, no margins, no WP default spacing */
+.we-page-columns {
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
 }
+/* Kill WP default bottom margin on columns */
+:where(.wp-block-columns).we-page-columns {
+    margin-bottom: 0 !important;
+}
+
+/* Sidebar: sticky, flush left, right border, NO background */
+.we-sidebar-col {
+    position: sticky !important;
+    top: var(--we-header-height) !important;
+    align-self: flex-start !important;
+    max-height: calc(100vh - var(--we-header-height));
+    overflow-y: auto;
+    border-right: 1px solid var(--we-border-subtle);
+    padding: 20px 0 48px 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+}
+/* Ensure no gap between sidebar and viewport left edge */
+.we-sidebar-col,
+.we-sidebar-col > .wp-block-template-part,
+.we-sidebar-col > .wp-block-template-part > .wp-block-group {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+/* Remove any has-background styling from sidebar wrapper */
+.we-sidebar-col .wp-block-group.has-background {
+    background-color: transparent !important;
+    padding: 20px 0 48px 0 !important;
+}
+
+.we-sidebar-col .we-nav-section a,
+.we-sidebar-col .we-nav-section .wp-block-post-title a,
+.we-sidebar-col .wp-block-categories a {
+    text-decoration: none;
+    color: var(--we-text-muted);
+    transition: color 0.15s;
+}
+.we-sidebar-col .we-nav-section a:hover,
+.we-sidebar-col .we-nav-section .wp-block-post-title a:hover,
+.we-sidebar-col .wp-block-categories a:hover {
+    color: var(--we-text-primary);
+}
+
+.we-sidebar-col::-webkit-scrollbar { width: 3px; }
+.we-sidebar-col::-webkit-scrollbar-track { background: transparent; }
+.we-sidebar-col::-webkit-scrollbar-thumb { background: var(--we-border-subtle); border-radius: 3px; }
+
+/* Content column: constrained to 740px, no grow */
+.wp-block-columns.we-page-columns > .wp-block-column.we-content-col {
+    flex-basis: 740px !important;
+    max-width: 740px !important;
+    flex-grow: 0 !important;
+    padding: 20px 48px 80px !important;
+}
+
+/* TOC Rail: sticky, right side */
+.we-toc-rail {
+    position: sticky !important;
+    top: var(--we-header-height) !important;
+    align-self: flex-start !important;
+    max-height: calc(100vh - var(--we-header-height));
+    overflow-y: auto;
+    font-family: var(--wp--preset--font-family--syne);
+    padding: 20px 24px 48px 32px !important;
+}
+
 .we-toc-rail::before {
     content: "On this page";
     font-size: 0.6875rem;
@@ -166,19 +253,27 @@ body {
     line-height: 1.4;
     text-decoration: none;
 }
-.we-toc-item a:hover {
-    color: var(--we-text-primary);
-}
-.we-toc-item a.active {
-    color: var(--we-accent);
-    border-left-color: var(--we-accent);
-}
-.we-toc-h3 a {
-    padding-left: 1.5rem;
-    font-size: 0.75rem;
-}
+.we-toc-item a:hover { color: var(--we-text-primary); }
+.we-toc-item a.active { color: var(--we-accent); border-left-color: var(--we-accent); }
+.we-toc-h3 a { padding-left: 1.5rem; font-size: 0.75rem; }
 
-/* ── Responsive: hide TOC on narrow viewports ───────────────── */
+.we-toc-rail::-webkit-scrollbar { width: 3px; }
+.we-toc-rail::-webkit-scrollbar-track { background: transparent; }
+.we-toc-rail::-webkit-scrollbar-thumb { background: var(--we-border-subtle); border-radius: 3px; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 1280px) {
-    .we-toc-rail { display: none; }
+    .we-toc-rail { display: none !important; }
+    .wp-block-columns.we-page-columns > .wp-block-column.we-content-col {
+        max-width: none !important;
+        flex-grow: 1 !important;
+        flex-basis: auto !important;
+        padding: 20px 24px 80px !important;
+    }
+}
+@media (max-width: 1024px) {
+    .we-sidebar-col { display: none !important; }
+    .wp-block-columns.we-page-columns > .wp-block-column.we-content-col {
+        padding: 20px 16px 48px !important;
+    }
 }
