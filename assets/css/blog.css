@@ -1,0 +1,264 @@
+/**
+ * Wicked Evolutions — Blog Styles
+ * CSS for things Gutenberg blocks cannot express.
+ * Loaded on the main site only (blog_id 1).
+ *
+ * Covers: category accent color system, post card hover/border,
+ * punchy paragraphs, category label ::before, grid layouts,
+ * series card styles, featured variant gradient.
+ */
+
+/* ── Category accent color system ───────────────────────────── */
+:root {
+    --cat-accent: #FFEE58;
+}
+
+/* Category-specific accents — applied via body_class or wrapper */
+.category-the-mirror,
+.category-the-mirror-experiment .cat-the-mirror,
+body.category-the-mirror { --cat-accent: #FFEE58; }
+
+.category-process,
+body.category-process { --cat-accent: #503AA8; }
+
+.category-backstory,
+body.category-backstory { --cat-accent: #7c3aed; }
+
+.category-how-we-built-this,
+body.category-how-we-built-this { --cat-accent: #22c55e; }
+
+.category-the-coordinator,
+body.category-the-coordinator { --cat-accent: #c9a84c; }
+
+.category-team-meetings,
+body.category-team-meetings { --cat-accent: rgba(224,221,213,0.50); }
+
+.category-mastery-of-time-invisibility-stone,
+body.category-mastery-of-time-invisibility-stone { --cat-accent: #FFEE58; }
+
+.category-when-wordpress-becomes-ai-native,
+body.category-when-wordpress-becomes-ai-native { --cat-accent: #22c55e; }
+
+/* ── Blog Single Post ───────────────────────────────────────── */
+
+/* Post header bottom border in category accent */
+.blog-post-header {
+    border-bottom-color: var(--cat-accent) !important;
+}
+
+/* Category label with accent line before it */
+.blog-cat-label,
+.blog-cat-label a {
+    color: var(--cat-accent) !important;
+    text-decoration: none;
+}
+.blog-cat-label {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+}
+.blog-cat-label::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--cat-accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+/* Body typography — blocks set the base, CSS refines */
+.blog-body .wp-block-post-content p {
+    font-weight: 300;
+    line-height: 1.82;
+    color: rgba(224,221,213,0.68);
+    margin-bottom: 0;
+}
+.blog-body .wp-block-post-content p + p {
+    margin-top: 1.6em;
+}
+
+/* H2 — border-top in category accent */
+.blog-body .wp-block-post-content h2 {
+    border-top: 1px solid var(--cat-accent);
+    padding-top: 12px;
+    margin-top: clamp(52px, 7vw, 80px);
+}
+
+/* Blockquote — left border in category accent */
+.blog-body .wp-block-post-content blockquote,
+.blog-body .wp-block-post-content .wp-block-quote {
+    border-left: 2px solid var(--cat-accent) !important;
+    padding: 8px 0 8px 24px;
+}
+
+/* Punchy paragraphs — short emphatic lines */
+.blog-body .wp-block-post-content .p-punch,
+.blog-body .wp-block-post-content p.p-punch {
+    font-weight: 400 !important;
+    color: var(--wp--preset--color--contrast) !important;
+    line-height: 1.5;
+    margin-top: 1.8em;
+    margin-bottom: 1.8em;
+}
+
+/* Strong text — slightly brighter */
+.blog-body .wp-block-post-content strong {
+    font-weight: 600;
+    color: var(--wp--preset--color--contrast);
+}
+
+/* Inline code */
+.blog-body .wp-block-post-content code:not(pre code) {
+    font-family: var(--wp--preset--font-family--jetbrains-mono);
+    font-size: 0.82em;
+    color: #a78bfa;
+    background: rgba(124,58,237,0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+}
+
+/* ── Blog Category Archive ──────────────────────────────────── */
+
+/* Archive header border in category accent */
+.blog-archive-header {
+    border-bottom-color: var(--cat-accent) !important;
+}
+
+/* Archive eyebrow with accent line */
+.blog-archive-eyebrow,
+.blog-archive-eyebrow a {
+    color: var(--cat-accent) !important;
+    text-decoration: none;
+}
+.blog-archive-eyebrow {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+}
+.blog-archive-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: var(--cat-accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+}
+
+/* Post card grid — CSS grid replaces WP's flex grid */
+.blog-post-cards {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 2px !important;
+}
+
+/* Post card — left border accent, hover effects */
+.blog-post-card {
+    border-left: 3px solid var(--cat-accent) !important;
+    transition: border-color 0.2s, transform 0.2s !important;
+}
+.blog-post-card:hover {
+    border-color: var(--cat-accent) !important;
+    transform: translateY(-2px);
+}
+
+/* Card category label color */
+.blog-card-cat,
+.blog-card-cat a {
+    color: var(--cat-accent) !important;
+    text-decoration: none;
+}
+
+/* Card "Read →" link */
+.blog-card-read {
+    color: var(--cat-accent) !important;
+    transition: letter-spacing 0.2s;
+}
+.blog-post-card:hover .blog-card-read {
+    letter-spacing: 0.08em;
+}
+
+/* ── Series Page ────────────────────────────────────────────── */
+
+/* Series grid — 3 column */
+.blog-series-grid-area .wp-block-columns,
+.series-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 2px !important;
+}
+
+/* Series card base */
+.series-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 32px 28px;
+    transition: border-color 0.25s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+.series-card:hover {
+    border-color: #FFEE58;
+    transform: translateY(-2px);
+}
+
+/* Series card featured variant */
+.series-card--featured {
+    border-color: rgba(255,238,88,0.17);
+    background: linear-gradient(135deg, rgba(255,238,88,0.07), rgba(255,255,255,0.025) 60%);
+}
+
+/* Series card typography */
+.series-card-eye {
+    font-family: var(--wp--preset--font-family--jetbrains-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(224,221,213,0.22);
+    margin-bottom: 12px;
+}
+.series-card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    flex: 1;
+}
+.series-card-desc {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: rgba(224,221,213,0.68);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+.series-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-family: var(--wp--preset--font-family--jetbrains-mono);
+    font-size: 0.68rem;
+}
+.series-card-count { color: rgba(224,221,213,0.22); }
+.series-card-link {
+    color: #FFEE58;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.2s;
+}
+.series-card:hover .series-card-link { gap: 8px; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .blog-post-cards {
+        grid-template-columns: 1fr !important;
+    }
+    .blog-series-grid-area .wp-block-columns,
+    .series-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
