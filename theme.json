@@ -320,6 +320,9 @@
     },
     "templateParts": [
         { "name": "header", "title": "Header", "area": "header" },
+        { "name": "header-main", "title": "Header — Main Site", "area": "header" },
+        { "name": "header-knowledge", "title": "Header — Knowledge", "area": "header" },
+        { "name": "header-community", "title": "Header — Community", "area": "header" },
         { "name": "footer", "title": "Footer", "area": "footer" },
         { "name": "sidebar", "title": "Sidebar", "area": "uncategorized" }
     ]
