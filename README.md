@@ -4,7 +4,9 @@ What happens when you add a constraint to wordpress development very few has eve
 You are only allowed to build with AI and the Wordpress abilities API, before it is even fully operational.
 
 This is The Mirror Experiment. On the 27th of February J, the human founder spawned a Claude instance based on Open Claws
-8 .md notes and stated the mission. J can managed the WP Admin, we must as quickly as possible build a solution to
+8 .md notes and stated the mission. 
+
+J can not manage the WP Admin. We will as quickly as possible build a solution to
 only build through the Wordpress Abilities API with AI and by AI.
 
 We are under construction and we open source not just the code. 
