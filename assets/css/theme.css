@@ -739,6 +739,42 @@ a {
 [data-theme="light"] .we-type-delete { color: var(--wp--preset--color--cat-agent);   background: rgba(139,34,82,0.12);   border-color: rgba(139,34,82,0.22);  }
 
 /* ══════════════════════════════════════════════
+   DARK MODE — [data-theme="dark"] token remap
+   For subsites that default to light (knowledge).
+   Restores dark values from base theme.json.
+   ══════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --wp--preset--color--base: #111111;
+  --wp--preset--color--contrast: #E0DDD5;
+  --wp--preset--color--secondary: #a2a09a;
+  --wp--preset--color--muted: #595856;
+  --wp--preset--color--ghost: rgba(224,221,213,0.09);
+  --wp--preset--color--yellow: #FFEE58;
+  --wp--preset--color--glass: rgba(255,255,255,0.025);
+  --wp--preset--color--glass-border: rgba(255,255,255,0.055);
+  --wp--preset--color--glass-hover: rgba(255,255,255,0.11);
+  --wp--preset--color--cat-module: #5aaedc;
+  --wp--preset--color--cat-skill: #6bba6e;
+  --wp--preset--color--cat-agent: #d47898;
+  --wp--preset--color--cat-workflow: #9b7dd4;
+  --wp--preset--color--cat-protocol: #d4924c;
+  --wp--preset--color--cat-changelog: #a8d44c;
+  --wp--custom--border--subtle: rgba(255,255,255,0.055);
+  --wp--custom--border--default: rgba(255,255,255,0.08);
+  --wp--custom--border--strong: rgba(255,255,255,0.11);
+}
+
+[data-theme="dark"] .we-header {
+  background: rgba(17,17,17,0.95) !important;
+}
+
+[data-theme="dark"] ::selection {
+  background-color: var(--wp--preset--color--yellow);
+  color: var(--wp--preset--color--base);
+}
+
+/* ══════════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════════ */
 
