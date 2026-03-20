@@ -87,9 +87,9 @@ a {
 /* ── Sidebar column ── */
 .we-sidebar-col {
   position: sticky !important;
-  top: 64px !important;
+  top: 112px !important;
   align-self: flex-start !important;
-  max-height: calc(100vh - 64px);
+  max-height: calc(100vh - 112px);
   overflow-y: auto;
   border-right: 1px solid var(--wp--custom--border--subtle);
   padding: 20px 0 48px 0 !important;
@@ -111,9 +111,9 @@ a {
 /* TOC rail */
 .we-toc-rail {
   position: sticky !important;
-  top: 64px !important;
+  top: 112px !important;
   align-self: flex-start !important;
-  max-height: calc(100vh - 64px);
+  max-height: calc(100vh - 112px);
   overflow-y: auto;
   font-family: var(--wp--preset--font-family--syne);
   padding: 20px 24px 48px 32px !important;
@@ -155,7 +155,7 @@ a {
 /* ── Admin bar offset ── */
 .admin-bar .we-sidebar-col,
 .admin-bar .we-toc-rail {
-  top: calc(64px + 32px) !important;
+  top: calc(112px + 32px) !important;
 }
 
 /* ══════════════════════════════════════════════
