@@ -406,6 +406,67 @@ a {
 }
 
 /* ══════════════════════════════════════════════
+   LIGHT MODE — [data-theme="light"] token remap
+   Source: Light Mode Design Guide §2
+   ══════════════════════════════════════════════ */
+
+[data-theme="light"] {
+  /* Core palette */
+  --wp--preset--color--base: #F2EFE9;
+  --wp--preset--color--contrast: #1C1915;
+  --wp--preset--color--secondary: #2E2A24;
+  --wp--preset--color--muted: #7A7268;
+  --wp--preset--color--ghost: rgba(50,44,36,0.06);
+
+  /* Accent — amber in light mode */
+  --wp--preset--color--yellow: #8B6914;
+
+  /* Glass surfaces — warm dark channel */
+  --wp--preset--color--glass: rgba(50,44,36,0.04);
+  --wp--preset--color--glass-border: rgba(50,44,36,0.14);
+  --wp--preset--color--glass-hover: rgba(50,44,36,0.24);
+
+  /* Category badges — darkened for light bg contrast */
+  --wp--preset--color--cat-module: #1A6E9A;
+  --wp--preset--color--cat-skill: #1A6E32;
+  --wp--preset--color--cat-agent: #8B2252;
+  --wp--preset--color--cat-workflow: #5C1EA0;
+  --wp--preset--color--cat-protocol: #8B4A14;
+  --wp--preset--color--cat-changelog: #4A7A14;
+
+  /* Borders — warm dark channel */
+  --wp--custom--border--subtle: rgba(50,44,36,0.08);
+  --wp--custom--border--default: rgba(50,44,36,0.14);
+  --wp--custom--border--strong: rgba(50,44,36,0.24);
+}
+
+/* ── Topbar glass in light mode ── */
+[data-theme="light"] .we-header {
+  background: rgba(242,239,233,0.95) !important;
+}
+
+/* ── Selection ── */
+[data-theme="light"] ::selection {
+  background-color: rgba(139,105,20,0.20);
+  color: #1C1915;
+}
+
+/* ── Inline code ── */
+[data-theme="light"] :where(.wp-block-post-content) code:not(pre code) {
+  background: var(--wp--preset--color--glass);
+  border-color: var(--wp--custom--border--default);
+  color: var(--wp--preset--color--yellow);
+}
+
+/* ── Badge overrides ── */
+[data-theme="light"] .we-badge-skill    { background: rgba(26,110,50,0.13);  border-color: rgba(26,110,50,0.30); }
+[data-theme="light"] .we-badge-module   { background: rgba(26,110,154,0.13); border-color: rgba(26,110,154,0.30); }
+[data-theme="light"] .we-badge-agent    { background: rgba(139,34,82,0.13);  border-color: rgba(139,34,82,0.30); }
+[data-theme="light"] .we-badge-workflow { background: rgba(92,30,160,0.13);  border-color: rgba(92,30,160,0.30); }
+[data-theme="light"] .we-badge-protocol { background: rgba(139,74,20,0.13);  border-color: rgba(139,74,20,0.30); }
+[data-theme="light"] .we-badge-changelog{ background: rgba(74,122,20,0.13);  border-color: rgba(74,122,20,0.30); }
+
+/* ══════════════════════════════════════════════
    RESPONSIVE
    ══════════════════════════════════════════════ */
 
