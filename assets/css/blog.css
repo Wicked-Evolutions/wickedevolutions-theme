@@ -10,12 +10,13 @@
    eyebrow color, and card tinting.
    ══════════════════════════════════════════════ */
 
-.cat-the-experiment { --cat-accent: #FFEE58; }
-.cat-the-mirror    { --cat-accent: #a78bfa; }
-.cat-the-build     { --cat-accent: #22c55e; }
-.cat-the-field     { --cat-accent: #5aaedc; }
-.cat-the-record    { --cat-accent: #d4924c; }
-.cat-the-method    { --cat-accent: #d47898; }
+/* Single posts: body.category-{slug} via body_class() */
+body.category-the-experiment { --cat-accent: #FFEE58; }
+body.category-the-mirror     { --cat-accent: #a78bfa; }
+body.category-the-build      { --cat-accent: #22c55e; }
+body.category-the-field      { --cat-accent: #5aaedc; }
+body.category-the-record     { --cat-accent: #d4924c; }
+body.category-the-method     { --cat-accent: #d47898; }
 
 /* ── Blog post header border uses category accent ── */
 .blog-post-header {
