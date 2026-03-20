@@ -33,6 +33,36 @@ add_filter( 'category_template_hierarchy', function ( $templates ) {
 } );
 
 /**
+ * Header template part routing — swap slug based on subsite.
+ *
+ * Intercepts the template-part block before render and replaces the "header"
+ * slug with the subsite-specific header part.
+ */
+add_filter( 'render_block_data', function ( $parsed_block ) {
+    if ( 'core/template-part' !== $parsed_block['blockName'] ) {
+        return $parsed_block;
+    }
+
+    if ( empty( $parsed_block['attrs']['slug'] ) || 'header' !== $parsed_block['attrs']['slug'] ) {
+        return $parsed_block;
+    }
+
+    $map = array(
+        1 => 'header-main',
+        4 => 'header-knowledge',
+        2 => 'header-community',
+    );
+
+    $blog_id = get_current_blog_id();
+
+    if ( isset( $map[ $blog_id ] ) ) {
+        $parsed_block['attrs']['slug'] = $map[ $blog_id ];
+    }
+
+    return $parsed_block;
+} );
+
+/**
  * Enqueue theme assets.
  */
 add_action( 'wp_enqueue_scripts', function () {
