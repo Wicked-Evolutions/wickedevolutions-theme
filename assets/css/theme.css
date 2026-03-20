@@ -1,5 +1,5 @@
 /*
- * Wicked Evolutions — Theme Effects v0.2.0
+ * Wicked Evolutions — Theme Effects v0.3.0
  * Effects-only CSS. Layout via theme.json + editor settings.
  * Source: translated from HTML prototypes (we-blog-proto, we-brandbook, docs-prototype)
  */
@@ -53,21 +53,82 @@ a {
 }
 
 /* ══════════════════════════════════════════════
-   HEADER
+   HEADER — Dual-Row (Topbar + Tabstrip)
    ══════════════════════════════════════════════ */
 
-.we-site-header {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 100;
+/* ── Sticky wrapper ── */
+.we-sticky-header { z-index: 100; }
+
+/* ── Header glass ── */
+.we-header {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-.we-site-header .wp-block-navigation-item a {
-  transition: color 0.15s;
+/* ── Site title dot ── */
+.we-header .wp-block-site-title a::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--wp--preset--color--green);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
 }
 
-.we-site-header .wp-block-navigation-item a:hover {
+/* ── Topbar link hover ── */
+.we-topbar a { transition: color 0.15s; }
+.we-topbar a:hover { color: var(--wp--preset--color--contrast) !important; }
+
+/* ── Version badge pill ── */
+.we-version-badge {
+  border: 1px solid var(--wp--custom--border--subtle);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+/* ── Tab links ── */
+.we-tab a {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s, color 0.15s;
+  color: var(--wp--preset--color--secondary);
+  text-decoration: none;
+}
+.we-tab a:hover {
   color: var(--wp--preset--color--contrast) !important;
+}
+.we-tab-active a {
+  border-bottom-color: var(--wp--preset--color--yellow);
+  color: var(--wp--preset--color--contrast) !important;
+}
+
+/* ── Theme toggle button ── */
+.we-theme-toggle {
+  background: none;
+  border: 1px solid var(--wp--custom--border--subtle);
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  color: var(--wp--preset--color--secondary);
+  font-size: 14px;
+  line-height: 1;
+  transition: border-color 0.15s;
+}
+.we-theme-toggle:hover {
+  border-color: var(--wp--custom--border--strong);
+}
+[data-theme="light"] .we-icon-moon { display: none; }
+[data-theme="dark"] .we-icon-sun,
+:not([data-theme]) .we-icon-sun { display: none; }
+
+/* ── Tabstrip hide on mobile ── */
+@media (max-width: 768px) {
+  .we-tabstrip { display: none; }
 }
 
 /* ══════════════════════════════════════════════
