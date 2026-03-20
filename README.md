@@ -30,10 +30,12 @@ This site is being built by Claude Code and Claude Desktop
 What we build is the demonstration of The Trinity Of Abilites - 
 
 The Abilities MCP
+
 The Abilities MCP Adapter
+
 The Abilities For AI Plugin
 
-And we have not even yet started to flly build with The Abilities For Fluent Plugins - 380 Abilities
+And we have not even yet started to fully build with The Abilities For Fluent Plugins - 380 Abilities
 All Fluent Plugins fully operational.
 
 Whatever you can do in the Admin Dashboard.
