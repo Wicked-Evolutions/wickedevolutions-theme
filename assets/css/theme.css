@@ -145,6 +145,19 @@ a {
   margin-bottom: 0 !important;
 }
 
+/* ── Doc post title — DS spec: clamp(1.7rem, 3vw, 2.4rem) ── */
+.we-page-columns .wp-block-post-title,
+.we-page-columns h1 {
+  font-size: clamp(1.7rem, 3vw, 2.4rem) !important;
+  line-height: 1.08;
+}
+
+/* ── Doc tables — horizontal scroll on mobile ── */
+.wp-block-post-content .wp-block-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* ── Sidebar column ── */
 .we-sidebar-col {
   position: sticky !important;
