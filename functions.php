@@ -63,6 +63,38 @@ add_filter( 'render_block_data', function ( $parsed_block ) {
 } );
 
 /**
+ * Auto-assign style variation per subsite.
+ *
+ * Uses wp_theme_json_data_theme filter to merge variation data
+ * on top of theme.json for specific subsites.
+ */
+add_filter( 'wp_theme_json_data_theme', function ( $theme_json ) {
+    $variations = array(
+        4 => 'knowledge',
+    );
+
+    $blog_id = get_current_blog_id();
+
+    if ( ! isset( $variations[ $blog_id ] ) ) {
+        return $theme_json;
+    }
+
+    $file = get_stylesheet_directory() . '/styles/' . $variations[ $blog_id ] . '.json';
+
+    if ( ! file_exists( $file ) ) {
+        return $theme_json;
+    }
+
+    $data = json_decode( file_get_contents( $file ), true );
+
+    if ( ! is_array( $data ) ) {
+        return $theme_json;
+    }
+
+    return $theme_json->update_with( $data );
+}, 10 );
+
+/**
  * Per-subsite default theme via data-default-theme attribute on <html>.
  * Knowledge (blog_id 4) defaults to light; all others default to dark.
  */
