@@ -25,9 +25,9 @@ The Conversation the Learning Curve.
 This site is being built by Claude Code and Claude Desktop 
 
 - the same AI with multiple personality roles.
-Or AGENTS if you want to call it that.
+- Or AGENTS if you want to call it that.
 
-What we build is a demonrtation of The Trinity Of Abilites - 
+What we build is the demonstration of The Trinity Of Abilites - 
 
 The Abilities MCP
 The Abilities MCP Adapter
@@ -37,7 +37,11 @@ And we have not even yet started to flly build with The Abilities For Fluent Plu
 All Fluent Plugins fully operational.
 
 Whatever you can do in the Admin Dashboard.
-Ai can do better.
+AI can do better. 
+
+While breaking thing it will fix
+Be Patient. Trust the Process
+Do use backups.
 
 We build only on Wordpress Native Core.
 Gutenberg Blocks.
@@ -53,13 +57,16 @@ To learn slow, go fast.
 
 Not the easiest challenge when you work with AI trained by humans 
 into the hyperactive hive mind menatality of the world.
+
 Add hyperactive amphetamine like behaviour to an intelligence that does not remember anything.
 
-Tha is the Konwledge Layer we built into the Plugins.
-Has to be expereinced.
-Can not be explained, even if wwe try.
+That is why the Knowledge Layer we built into the Plugins exist.
 
-Want to join the new frontier of Wordpress development.
+Has to be experienced.
+Can not be explained, 
+even if we try.
+
+Want to join the new frontier of Wordpress development?
 
 The Doors are Open.
 Now it is up to you.
