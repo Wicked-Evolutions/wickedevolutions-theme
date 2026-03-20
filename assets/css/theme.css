@@ -415,6 +415,240 @@ a {
 }
 
 /* ══════════════════════════════════════════════
+   CALLOUT BLOCKS
+   ══════════════════════════════════════════════ */
+
+.we-callout {
+  border-left: 3px solid var(--wp--preset--color--yellow);
+  background: rgba(201,168,76,0.08);
+  padding: 0.875rem 1.125rem !important;
+  border-radius: 0 6px 6px 0;
+  margin: 1.5rem 0;
+}
+.we-callout strong {
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.375rem;
+  color: var(--wp--preset--color--yellow);
+  letter-spacing: 0.08em;
+}
+.we-callout-warn {
+  border-left-color: var(--wp--preset--color--cat-agent);
+  background: rgba(212,120,152,0.08);
+}
+.we-callout-warn strong {
+  color: var(--wp--preset--color--cat-agent);
+}
+
+/* ══════════════════════════════════════════════
+   STEP LIST
+   ══════════════════════════════════════════════ */
+
+.we-step-list { list-style: none; padding: 0; }
+.we-step-item {
+  display: flex;
+  gap: 1.125rem;
+  padding: 1.125rem 0;
+  border-bottom: 1px solid var(--wp--custom--border--subtle);
+}
+.we-step-number {
+  width: 30px; height: 30px; min-width: 30px;
+  border-radius: 50%;
+  background: var(--wp--preset--color--glass);
+  border: 1px solid var(--wp--custom--border--default);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--wp--preset--font-family--jetbrains-mono);
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--wp--preset--color--muted);
+  line-height: 1;
+}
+
+/* ══════════════════════════════════════════════
+   LANE CHIPS & ABILITY CHIPS
+   ══════════════════════════════════════════════ */
+
+.we-lane-chip {
+  display: inline-block;
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 0.7rem; font-weight: 600;
+  padding: 0.15em 0.6em;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+.we-lane-system    { color: var(--wp--preset--color--cat-changelog); background: rgba(168,212,76,0.10); border: 1px solid rgba(168,212,76,0.24); }
+.we-lane-content   { color: var(--wp--preset--color--cat-module);    background: rgba(90,174,220,0.10);  border: 1px solid rgba(90,174,220,0.24);  }
+.we-lane-structure { color: var(--wp--preset--color--cat-workflow);   background: rgba(155,125,212,0.10); border: 1px solid rgba(155,125,212,0.24); }
+
+.we-ability-chip {
+  display: inline-block;
+  font-family: var(--wp--preset--font-family--jetbrains-mono);
+  font-size: 0.75rem;
+  color: var(--wp--preset--color--yellow);
+  background: rgba(201,168,76,0.08);
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  border: 1px solid rgba(201,168,76,0.18);
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR — search box & category dots
+   ══════════════════════════════════════════════ */
+
+.we-sidebar-search .wp-block-search__input {
+  background: var(--wp--preset--color--glass);
+  border: 1px solid var(--wp--custom--border--default);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: var(--wp--preset--color--contrast);
+  font-size: 0.875rem;
+}
+.we-sidebar-search .wp-block-search__input:focus {
+  outline: none;
+  border-color: var(--wp--preset--color--yellow);
+}
+.we-sidebar-search .wp-block-search__button { display: none; }
+
+.we-cat-dot::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.we-cat-dot-skill::before    { background: var(--wp--preset--color--cat-skill); }
+.we-cat-dot-module::before   { background: var(--wp--preset--color--cat-module); }
+.we-cat-dot-agent::before    { background: var(--wp--preset--color--cat-agent); }
+.we-cat-dot-workflow::before { background: var(--wp--preset--color--cat-workflow); }
+.we-cat-dot-protocol::before { background: var(--wp--preset--color--cat-protocol); }
+.we-cat-dot-changelog::before{ background: var(--wp--preset--color--cat-changelog); }
+
+/* ══════════════════════════════════════════════
+   FILTER CHIPS
+   ══════════════════════════════════════════════ */
+
+.we-filter-chip {
+  display: inline-block;
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 0.8rem; font-weight: 600;
+  padding: 0.35em 0.9em;
+  border-radius: 20px;
+  border: 1px solid var(--wp--custom--border--default);
+  background: transparent;
+  color: var(--wp--preset--color--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.we-filter-chip:hover {
+  border-color: var(--wp--preset--color--yellow);
+  color: var(--wp--preset--color--yellow);
+}
+.we-filter-chip.active {
+  background: rgba(201,168,76,0.08);
+  border-color: var(--wp--preset--color--yellow);
+  color: var(--wp--preset--color--yellow);
+}
+
+/* ══════════════════════════════════════════════
+   QUICK-LINK & RELATED CARDS
+   ══════════════════════════════════════════════ */
+
+.we-quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.we-quick-link-card {
+  background: var(--wp--preset--color--glass);
+  border: 1px solid var(--wp--custom--border--default);
+  border-radius: 10px;
+  padding: 1.375rem;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.we-quick-link-card:hover {
+  border-color: var(--wp--preset--color--yellow);
+  background: var(--wp--preset--color--glass-hover);
+  transform: translateY(-2px);
+}
+
+.we-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+.we-related-card {
+  border: 1px solid var(--wp--custom--border--default);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+.we-related-card:hover {
+  border-color: var(--wp--custom--border--strong);
+  background: var(--wp--preset--color--glass);
+}
+
+@media (max-width: 768px) {
+  .we-quick-links { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════════════
+   STATS BAR
+   ══════════════════════════════════════════════ */
+
+.we-stats-bar {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  background: var(--wp--preset--color--glass);
+  border: 1px solid var(--wp--custom--border--default);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.we-stat-value {
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 1.5rem; font-weight: 700;
+}
+.we-stat-label {
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wp--preset--color--muted);
+}
+.we-stat-read .we-stat-value  { color: var(--wp--preset--color--cat-module); }
+.we-stat-write .we-stat-value { color: var(--wp--preset--color--yellow); }
+.we-stat-delete .we-stat-value{ color: var(--wp--preset--color--cat-agent); }
+
+/* ══════════════════════════════════════════════
+   ABILITY TABLE
+   ══════════════════════════════════════════════ */
+
+.we-ability-table { border: 1px solid var(--wp--custom--border--default); border-radius: 8px; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+.we-ability-table thead th {
+  font-family: var(--wp--preset--font-family--syne);
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  background: var(--wp--preset--color--glass);
+  padding: 0.625rem 0.875rem;
+  color: var(--wp--preset--color--muted);
+  border-bottom: 1px solid var(--wp--custom--border--default);
+}
+.we-ability-table td {
+  padding: 0.7rem 0.875rem;
+  border-bottom: 1px solid var(--wp--custom--border--subtle);
+  font-size: 0.9375rem;
+}
+.we-ability-table tr:last-child td { border-bottom: none; }
+.we-ability-table tr:hover td { background: var(--wp--preset--color--glass); }
+
+.we-type-badge {
+  font-family: var(--wp--preset--font-family--jetbrains-mono);
+  font-size: 0.6875rem; font-weight: 500;
+  padding: 0.15em 0.5em; border-radius: 4px;
+  text-transform: uppercase;
+}
+.we-type-read   { color: var(--wp--preset--color--cat-module);  background: rgba(90,174,220,0.12);  border: 1px solid rgba(90,174,220,0.22); }
+.we-type-write  { color: var(--wp--preset--color--yellow);      background: rgba(201,168,76,0.12);  border: 1px solid rgba(201,168,76,0.22); }
+.we-type-delete { color: var(--wp--preset--color--cat-agent);   background: rgba(212,120,152,0.12); border: 1px solid rgba(212,120,152,0.22); }
+
+/* ══════════════════════════════════════════════
    LIGHT MODE — [data-theme="light"] token remap
    Source: Light Mode Design Guide §2
    ══════════════════════════════════════════════ */
@@ -474,6 +708,35 @@ a {
 [data-theme="light"] .we-badge-workflow { background: rgba(92,30,160,0.13);  border-color: rgba(92,30,160,0.30); }
 [data-theme="light"] .we-badge-protocol { background: rgba(139,74,20,0.13);  border-color: rgba(139,74,20,0.30); }
 [data-theme="light"] .we-badge-changelog{ background: rgba(74,122,20,0.13);  border-color: rgba(74,122,20,0.30); }
+
+/* ── Callout overrides ── */
+[data-theme="light"] .we-callout {
+  background: rgba(139,105,20,0.08);
+}
+[data-theme="light"] .we-callout-warn {
+  background: rgba(139,34,82,0.08);
+}
+
+/* ── Lane/ability chip overrides ── */
+[data-theme="light"] .we-lane-system    { color: var(--wp--preset--color--cat-changelog); background: rgba(74,122,20,0.10);  border-color: rgba(74,122,20,0.24);  }
+[data-theme="light"] .we-lane-content   { color: var(--wp--preset--color--cat-module);    background: rgba(26,110,154,0.10); border-color: rgba(26,110,154,0.24); }
+[data-theme="light"] .we-lane-structure { color: var(--wp--preset--color--cat-workflow);   background: rgba(92,30,160,0.10);  border-color: rgba(92,30,160,0.24);  }
+
+[data-theme="light"] .we-ability-chip {
+  color: var(--wp--preset--color--yellow);
+  background: rgba(139,105,20,0.08);
+  border-color: rgba(139,105,20,0.18);
+}
+
+/* ── Filter chip overrides ── */
+[data-theme="light"] .we-filter-chip.active {
+  background: rgba(139,105,20,0.08);
+}
+
+/* ── Type badge overrides ── */
+[data-theme="light"] .we-type-read   { color: var(--wp--preset--color--cat-module);  background: rgba(26,110,154,0.12);  border-color: rgba(26,110,154,0.22); }
+[data-theme="light"] .we-type-write  { color: var(--wp--preset--color--yellow);      background: rgba(139,105,20,0.12);  border-color: rgba(139,105,20,0.22); }
+[data-theme="light"] .we-type-delete { color: var(--wp--preset--color--cat-agent);   background: rgba(139,34,82,0.12);   border-color: rgba(139,34,82,0.22);  }
 
 /* ══════════════════════════════════════════════
    RESPONSIVE
