@@ -97,6 +97,18 @@
                         "fontStyle": "normal",
                         "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"]
                     }]
+                },
+                {
+                    "fontFamily": "'Spectral', Georgia, 'Times New Roman', serif",
+                    "name": "Spectral",
+                    "slug": "spectral",
+                    "fontFace": [
+                        { "fontFamily": "Spectral", "fontWeight": "300", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-300.woff2"] },
+                        { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-regular.woff2"] },
+                        { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "italic", "src": ["file:./assets/fonts/spectral-v13-latin-italic.woff2"] },
+                        { "fontFamily": "Spectral", "fontWeight": "500", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-500.woff2"] },
+                        { "fontFamily": "Spectral", "fontWeight": "600", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-600.woff2"] }
+                    ]
                 }
             ]
         },

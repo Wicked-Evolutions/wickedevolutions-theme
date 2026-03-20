@@ -63,6 +63,14 @@ add_filter( 'render_block_data', function ( $parsed_block ) {
 } );
 
 /**
+ * Add subsite body class for per-subsite CSS scoping.
+ */
+add_filter( 'body_class', function ( $classes ) {
+    $classes[] = 'subsite-' . get_current_blog_id();
+    return $classes;
+} );
+
+/**
  * Enqueue theme assets.
  */
 add_action( 'wp_enqueue_scripts', function () {

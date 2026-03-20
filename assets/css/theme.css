@@ -232,6 +232,15 @@ a {
   top: calc(112px + 32px) !important;
 }
 
+/* ── Knowledge subsite — Spectral body prose ── */
+.subsite-4 .wp-block-post-content p,
+.subsite-4 .wp-block-post-content li,
+.subsite-4 .wp-block-post-content blockquote {
+  font-family: var(--wp--preset--font-family--spectral);
+  font-weight: 400;
+  line-height: 1.72;
+}
+
 /* ══════════════════════════════════════════════
    SIDEBAR — nav links
    ══════════════════════════════════════════════ */
