@@ -63,6 +63,19 @@ add_filter( 'render_block_data', function ( $parsed_block ) {
 } );
 
 /**
+ * Per-subsite default theme via data-default-theme attribute on <html>.
+ * Knowledge (blog_id 4) defaults to light; all others default to dark.
+ */
+add_filter( 'language_attributes', function ( $output ) {
+    $defaults = array(
+        4 => 'light',
+    );
+    $blog_id       = get_current_blog_id();
+    $default_theme = $defaults[ $blog_id ] ?? 'dark';
+    return $output . ' data-default-theme="' . $default_theme . '"';
+} );
+
+/**
  * Add subsite body class for per-subsite CSS scoping.
  */
 add_filter( 'body_class', function ( $classes ) {

@@ -1,6 +1,6 @@
 /**
  * Wicked Evolutions — Dark/Light theme toggle
- * Uses data-theme attribute on <html>. Dark is default.
+ * Uses data-theme attribute on <html>. Per-subsite default via data-default-theme.
  * Pattern: Design System v1.3 §2.5
  */
 function weToggleTheme() {
@@ -11,12 +11,10 @@ function weToggleTheme() {
     localStorage.setItem('we-theme', next);
 }
 
-// Restore saved preference before first paint
+// Restore saved preference or apply per-subsite default before first paint
 (function () {
     var saved = localStorage.getItem('we-theme');
-    if (saved === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-    } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
+    var defaultTheme = document.documentElement.getAttribute('data-default-theme') || 'dark';
+    var theme = saved || defaultTheme;
+    document.documentElement.setAttribute('data-theme', theme);
 })();
