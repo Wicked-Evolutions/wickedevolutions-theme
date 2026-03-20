@@ -9,23 +9,19 @@
                 { "slug": "secondary", "color": "#2E2A24", "name": "Secondary" },
                 { "slug": "muted", "color": "#7A7268", "name": "Muted" },
                 { "slug": "ghost", "color": "rgba(50,44,36,0.06)", "name": "Ghost" },
-
                 { "slug": "yellow", "color": "#8B6914", "name": "Yellow" },
                 { "slug": "green", "color": "#22c55e", "name": "Green" },
                 { "slug": "purple", "color": "#7c3aed", "name": "Purple" },
                 { "slug": "purple-light", "color": "#a78bfa", "name": "Purple Light" },
-
                 { "slug": "yellow-tint", "color": "rgba(139,105,20,0.07)", "name": "Yellow Tint" },
                 { "slug": "yellow-border", "color": "rgba(139,105,20,0.17)", "name": "Yellow Border" },
                 { "slug": "green-tint", "color": "rgba(34,197,94,0.07)", "name": "Green Tint" },
                 { "slug": "green-border", "color": "rgba(34,197,94,0.17)", "name": "Green Border" },
                 { "slug": "purple-tint", "color": "rgba(124,58,237,0.07)", "name": "Purple Tint" },
                 { "slug": "purple-border", "color": "rgba(124,58,237,0.16)", "name": "Purple Border" },
-
                 { "slug": "glass", "color": "rgba(50,44,36,0.04)", "name": "Glass" },
                 { "slug": "glass-border", "color": "rgba(50,44,36,0.14)", "name": "Glass Border" },
                 { "slug": "glass-hover", "color": "rgba(50,44,36,0.24)", "name": "Glass Hover" },
-
                 { "slug": "light-base", "color": "#F5F4F0", "name": "Light Base" },
                 { "slug": "light-surface", "color": "#ECEAE4", "name": "Light Surface" },
                 { "slug": "light-contrast", "color": "#1C1915", "name": "Light Contrast" },
@@ -34,7 +30,6 @@
                 { "slug": "light-border", "color": "rgba(50,44,36,0.12)", "name": "Light Border" },
                 { "slug": "light-border-hover", "color": "rgba(50,44,36,0.26)", "name": "Light Border Hover" },
                 { "slug": "light-amber", "color": "#8B6914", "name": "Light Amber" },
-
                 { "slug": "cat-module", "color": "#1A6E9A", "name": "Module" },
                 { "slug": "cat-skill", "color": "#1A6E32", "name": "Skill" },
                 { "slug": "cat-agent", "color": "#8B2252", "name": "Agent" },
@@ -45,42 +40,16 @@
         },
         "typography": {
             "fontFamilies": [
-                {
-                    "fontFamily": "'Syne', sans-serif",
-                    "name": "Syne",
-                    "slug": "syne",
-                    "fontFace": [
-                        { "fontFamily": "Syne", "fontWeight": "400 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Syne-Variable.woff2"] }
-                    ]
-                },
-                {
-                    "fontFamily": "'Manrope', sans-serif",
-                    "name": "Manrope",
-                    "slug": "manrope",
-                    "fontFace": [
-                        { "fontFamily": "Manrope", "fontWeight": "200 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Manrope-Variable.woff2"] }
-                    ]
-                },
-                {
-                    "fontFamily": "'JetBrains Mono', monospace",
-                    "name": "JetBrains Mono",
-                    "slug": "jetbrains-mono",
-                    "fontFace": [
-                        { "fontFamily": "JetBrains Mono", "fontWeight": "400 700", "fontStyle": "normal", "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"] }
-                    ]
-                },
-                {
-                    "fontFamily": "'Spectral', Georgia, 'Times New Roman', serif",
-                    "name": "Spectral",
-                    "slug": "spectral",
-                    "fontFace": [
-                        { "fontFamily": "Spectral", "fontWeight": "300", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-300.woff2"] },
-                        { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-regular.woff2"] },
-                        { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "italic", "src": ["file:./assets/fonts/spectral-v13-latin-italic.woff2"] },
-                        { "fontFamily": "Spectral", "fontWeight": "500", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-500.woff2"] },
-                        { "fontFamily": "Spectral", "fontWeight": "600", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-600.woff2"] }
-                    ]
-                }
+                { "fontFamily": "'Syne', sans-serif", "name": "Syne", "slug": "syne", "fontFace": [{ "fontFamily": "Syne", "fontWeight": "400 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Syne-Variable.woff2"] }] },
+                { "fontFamily": "'Manrope', sans-serif", "name": "Manrope", "slug": "manrope", "fontFace": [{ "fontFamily": "Manrope", "fontWeight": "200 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Manrope-Variable.woff2"] }] },
+                { "fontFamily": "'JetBrains Mono', monospace", "name": "JetBrains Mono", "slug": "jetbrains-mono", "fontFace": [{ "fontFamily": "JetBrains Mono", "fontWeight": "400 700", "fontStyle": "normal", "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"] }] },
+                { "fontFamily": "'Spectral', Georgia, 'Times New Roman', serif", "name": "Spectral", "slug": "spectral", "fontFace": [
+                    { "fontFamily": "Spectral", "fontWeight": "300", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-300.woff2"] },
+                    { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-regular.woff2"] },
+                    { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "italic", "src": ["file:./assets/fonts/spectral-v13-latin-italic.woff2"] },
+                    { "fontFamily": "Spectral", "fontWeight": "500", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-500.woff2"] },
+                    { "fontFamily": "Spectral", "fontWeight": "600", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-600.woff2"] }
+                ] }
             ]
         },
         "custom": {
@@ -105,35 +74,22 @@
                 ":hover": { "color": { "text": "var(--wp--preset--color--contrast)" } }
             },
             "heading": {
-                "typography": {
-                    "fontFamily": "var(--wp--preset--font-family--syne)"
-                },
+                "typography": { "fontFamily": "var(--wp--preset--font-family--syne)" },
                 "color": { "text": "var(--wp--preset--color--contrast)" }
             }
         },
         "blocks": {
-            "core/paragraph": {
-                "color": { "text": "var(--wp--preset--color--secondary)" }
-            },
-            "core/list": {
-                "color": { "text": "var(--wp--preset--color--secondary)" }
-            },
+            "core/paragraph": { "color": { "text": "var(--wp--preset--color--secondary)" } },
+            "core/list": { "color": { "text": "var(--wp--preset--color--secondary)" } },
             "core/code": {
-                "color": {
-                    "background": "var(--wp--preset--color--glass)",
-                    "text": "var(--wp--preset--color--secondary)"
-                },
-                "border": {
-                    "color": "var(--wp--custom--border--subtle)"
-                }
+                "color": { "background": "var(--wp--preset--color--glass)", "text": "var(--wp--preset--color--secondary)" },
+                "border": { "color": "var(--wp--custom--border--subtle)" }
             },
             "core/quote": {
                 "border": { "color": "var(--wp--preset--color--yellow)" },
                 "color": { "background": "var(--wp--preset--color--yellow-tint)" }
             },
-            "core/post-excerpt": {
-                "color": { "text": "var(--wp--preset--color--secondary)" }
-            }
+            "core/post-excerpt": { "color": { "text": "var(--wp--preset--color--secondary)" } }
         }
     }
 }
