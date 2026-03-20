@@ -53,8 +53,10 @@ a { text-decoration: none; transition: color 0.2s; }
 .subsite-4 .wp-block-post-content p, .subsite-4 .wp-block-post-content li, .subsite-4 .wp-block-post-content blockquote { font-family: var(--wp--preset--font-family--spectral); font-weight: 400; line-height: 1.72; }
 
 /* ═══ SIDEBAR ═══ */
-.we-sidebar p { font-size: 0.8125rem !important; font-weight: 500; line-height: 1.5; margin: 0; font-family: var(--wp--preset--font-family--syne); }
-.we-sidebar .wp-block-post-title a, .we-sidebar .we-nav-section a, .we-sidebar p a { display: block; text-decoration: none; color: var(--wp--preset--color--muted); transition: color 0.15s, background 0.15s; border-radius: 8px; }
+.we-sidebar p { font-size: 13px !important; font-weight: 500; line-height: 1.5; margin: 0; font-family: var(--wp--preset--font-family--syne); }
+.we-sidebar .wp-block-post-title { font-size: 13px !important; font-weight: 500; line-height: 1.5; margin: 0; font-family: var(--wp--preset--font-family--syne); }
+.we-sidebar .we-nav-label { font-size: 12px !important; }
+.we-sidebar .wp-block-post-title a, .we-sidebar .we-nav-section a, .we-sidebar p a { display: block; text-decoration: none; color: var(--wp--preset--color--muted); transition: color 0.15s, background 0.15s; border-radius: 8px; padding: 6px 12px 6px 16px; margin: 0 8px; }
 .we-sidebar .wp-block-post-title a:hover, .we-sidebar .we-nav-section a:hover, .we-sidebar p a:hover { color: var(--wp--preset--color--contrast); background: var(--wp--preset--color--glass); }
 .we-sidebar a[aria-current="page"], .we-sidebar .current-menu-item a { color: var(--wp--preset--color--yellow) !important; background: rgba(201,168,76,0.08); border-radius: 8px; }
 
