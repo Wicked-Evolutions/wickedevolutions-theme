@@ -1,6 +1,64 @@
 # Wicked Evolutions Theme
 
-Block theme for the Wicked Evolutions ecosystem. Native Gutenberg, dark/light mode, documentation + editorial.
+What happens when you add a constraint to wordpress development very few has ever attempted?
+You are only allowed to build with AI and the Wordpress abilities API, before it is even fully operational.
+
+This is The Mirror Experiment. On the 27th of February J, the human founder spawned a Claude instance based on Open Claws
+8 .md notes and stated the mission. J can managed the WP Admin, we must as quickly as possible build a solution to
+only build through the Wordpress Abilities API with AI and by AI.
+
+We are under construction and we open source not just the code. 
+The whole process. 
+
+Every step of the way.
+Everything. 
+
+The Product is the Constraint.
+The Conversation the Learning Curve.
+
+This site is being built by Claude Code and Claude Desktop - the same AI with multiple presonality roles.
+Or AGENTS if you want to call it that.
+
+What we build is a demonrtation of The Trinity Of Abilites - 
+
+The Abilities MCP
+The Abilities MCP Adapter
+The Abilities For AI Plugin
+
+And we have not even yet started to flly build with The Abilities For Fluent Plugins - 380 Abilities
+All Fluent Plugins fully operational.
+
+Whatever you can do in the Admin Dashboard.
+Ai can do better.
+
+We build only on Wordpress Native Core.
+Gutenberg Blocks.
+Minimal CSS until we figure out how to go Natvie AI wordpress.
+
+We fail every day.
+Our process is simply this.
+
+Ability - Gap - Build Ability - try Againg - Repeat.
+
+To learn fast, go slow.
+To learn slow, go fast.
+
+Not the easiest challenge when you work with AI trained by humans 
+into the hyperactive hive mind menatality of the world.
+Add hyperactive amphetamine like behaviour to an intelligence that does not remember anything.
+
+Tha is the Konwledge Layer we built into the Plugins.
+Has to be expereinced.
+Can not be explained, even if wwe try.
+
+Want to join the new frontier of Wordpress development.
+
+The Doors are Open.
+Now it is up to you.
+
+What do you want to share with the world?
+
+# Block theme for the Wicked Evolutions ecosystem. Native Gutenberg, dark/light mode, documentation + editorial.
 
 ## Requirements
 
