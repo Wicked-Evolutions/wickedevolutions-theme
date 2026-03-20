@@ -32,6 +32,13 @@ add_filter( 'category_template_hierarchy', function ( $templates ) {
     return $templates;
 } );
 
+add_filter( 'frontpage_template_hierarchy', function ( $templates ) {
+    if ( get_current_blog_id() === 4 ) {
+        array_unshift( $templates, 'front-page-knowledge' );
+    }
+    return $templates;
+} );
+
 /**
  * Header template part routing — swap slug based on subsite.
  *
