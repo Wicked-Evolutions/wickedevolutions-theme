@@ -246,27 +246,27 @@ a {
    ══════════════════════════════════════════════ */
 
 .we-sidebar .wp-block-post-title a,
-.we-sidebar .wp-block-categories a,
 .we-sidebar .we-nav-section a {
   display: block;
   text-decoration: none;
   color: var(--wp--preset--color--muted);
   transition: color 0.15s, background 0.15s;
-  border-radius: 6px;
+  border-radius: 8px;
+  padding: 6px 12px 6px 16px;
+  margin: 0 8px;
 }
 
 .we-sidebar .wp-block-post-title a:hover,
-.we-sidebar .wp-block-categories a:hover,
 .we-sidebar .we-nav-section a:hover {
   color: var(--wp--preset--color--contrast);
   background: var(--wp--preset--color--glass);
 }
 
-.we-sidebar .wp-block-post-title a[aria-current="page"],
-.we-sidebar .wp-block-navigation-item.current-menu-item a {
-  color: var(--wp--preset--color--contrast);
-  background: var(--wp--preset--color--glass);
-  border-radius: 6px;
+.we-sidebar a[aria-current="page"],
+.we-sidebar .current-menu-item a {
+  color: var(--wp--preset--color--yellow) !important;
+  background: rgba(201,168,76,0.08);
+  border-radius: 8px;
 }
 
 /* ══════════════════════════════════════════════
@@ -731,6 +731,13 @@ a {
 /* ── Filter chip overrides ── */
 [data-theme="light"] .we-filter-chip.active {
   background: rgba(139,105,20,0.08);
+}
+
+/* ── Sidebar active state override ── */
+[data-theme="light"] .we-sidebar a[aria-current="page"],
+[data-theme="light"] .we-sidebar .current-menu-item a {
+  color: var(--wp--preset--color--yellow) !important;
+  background: rgba(139,105,20,0.10);
 }
 
 /* ── Type badge overrides ── */
