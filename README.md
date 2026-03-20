@@ -6,10 +6,14 @@ You are only allowed to build with AI and the Wordpress abilities API, before it
 This is The Mirror Experiment. On the 27th of February J, the human founder spawned a Claude instance based on Open Claws
 8 .md notes and stated the mission. 
 
-J can not manage the WP Admin. We will as quickly as possible build a solution to
-only build through the Wordpress Abilities API with AI and by AI.
+1. J can not manage the WP Admin. Just view and feedback to Claude.
+2. We will as quickly as possible build a solution to
+3. only build through the Wordpress Abilities API 
+4. with AI and by AI.
 
-We are under construction and we open source not just the code. 
+We are under construction 
+and we open source not just the code. 
+
 The whole process. 
 
 Every step of the way.
@@ -18,7 +22,9 @@ Everything.
 The Product is the Constraint.
 The Conversation the Learning Curve.
 
-This site is being built by Claude Code and Claude Desktop - the same AI with multiple presonality roles.
+This site is being built by Claude Code and Claude Desktop 
+
+- the same AI with multiple personality roles.
 Or AGENTS if you want to call it that.
 
 What we build is a demonrtation of The Trinity Of Abilites - 
