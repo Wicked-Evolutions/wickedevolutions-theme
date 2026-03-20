@@ -229,6 +229,12 @@
             }
         },
         "blocks": {
+            "core/paragraph": {
+                "color": { "text": "var(--wp--preset--color--secondary)" }
+            },
+            "core/list": {
+                "color": { "text": "var(--wp--preset--color--secondary)" }
+            },
             "core/code": {
                 "typography": {
                     "fontFamily": "var(--wp--preset--font-family--jetbrains-mono)",
