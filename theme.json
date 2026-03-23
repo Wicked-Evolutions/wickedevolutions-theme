@@ -47,7 +47,7 @@
             "fontSizes": [
                 { "slug": "small", "size": "14px", "name": "Small", "fluid": false },
                 { "slug": "terminal", "size": "16px", "name": "Terminal", "fluid": false },
-                { "slug": "medium", "size": "19px", "name": "Medium", "fluid": { "min": "17px", "max": "19px" } },
+                { "slug": "medium", "size": "19px", "name": "Medium", "fluid": { "min": "16px", "max": "19px" } },
                 { "slug": "body", "size": "21px", "name": "Body", "fluid": { "min": "17px", "max": "21px" } },
                 { "slug": "body-large", "size": "23px", "name": "Body Large", "fluid": { "min": "19px", "max": "23px" } },
                 { "slug": "large", "size": "clamp(1.4rem, 2.5vw, 1.8rem)", "name": "Large" },
@@ -103,7 +103,7 @@
         },
         "blocks": {
             "core/paragraph": { "color": { "text": "var(--wp--preset--color--secondary)" } },
-            "core/list": { "color": { "text": "var(--wp--preset--color--secondary)" } },
+            "core/list": { "color": { "text": "var(--wp--preset--color--secondary)" }, "spacing": { "padding": { "left": "1.25em" }, "margin": { "top": "1.2em", "bottom": "1.2em" } } },
             "core/code": { "typography": { "fontFamily": "var(--wp--preset--font-family--jetbrains-mono)", "fontSize": "var(--wp--preset--font-size--terminal)", "lineHeight": "var(--wp--custom--line-height--loose)" }, "color": { "background": "rgba(255,255,255,0.015)", "text": "var(--wp--preset--color--secondary)" }, "border": { "color": "var(--wp--custom--border--subtle)", "width": "1px", "radius": "var(--wp--custom--radius--terminal)" }, "spacing": { "padding": { "top": "1.5rem", "right": "1.5rem", "bottom": "1.5rem", "left": "1.5rem" } } },
             "core/preformatted": { "typography": { "fontFamily": "var(--wp--preset--font-family--jetbrains-mono)", "fontSize": "var(--wp--preset--font-size--terminal)" }, "color": { "background": "rgba(255,255,255,0.015)", "text": "var(--wp--preset--color--secondary)" } },
             "core/separator": { "color": { "text": "var(--wp--custom--border--subtle)" }, "border": { "color": "currentColor" } },
