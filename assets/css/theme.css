@@ -164,6 +164,10 @@ a { text-decoration: none; transition: color 0.2s; }
 [data-theme="light"] {
   --wp--preset--color--base: #F2EFE9; --wp--preset--color--contrast: #1C1915; --wp--preset--color--secondary: #2E2A24; --wp--preset--color--muted: #7A7268; --wp--preset--color--ghost: rgba(50,44,36,0.06);
   --wp--preset--color--yellow: #8B6914; --wp--preset--color--glass: rgba(50,44,36,0.04); --wp--preset--color--glass-border: rgba(50,44,36,0.14); --wp--preset--color--glass-hover: rgba(50,44,36,0.24);
+  --wp--preset--color--green: #16a34a; --wp--preset--color--purple: #6d28d9; --wp--preset--color--purple-light: #7c3aed;
+  --wp--preset--color--yellow-tint: rgba(139,105,20,0.07); --wp--preset--color--yellow-border: rgba(139,105,20,0.17);
+  --wp--preset--color--green-tint: rgba(22,163,74,0.07); --wp--preset--color--green-border: rgba(22,163,74,0.17);
+  --wp--preset--color--purple-tint: rgba(109,40,217,0.07); --wp--preset--color--purple-border: rgba(109,40,217,0.16);
   --wp--preset--color--cat-module: #1A6E9A; --wp--preset--color--cat-skill: #1A6E32; --wp--preset--color--cat-agent: #8B2252; --wp--preset--color--cat-workflow: #5C1EA0; --wp--preset--color--cat-protocol: #8B4A14; --wp--preset--color--cat-changelog: #4A7A14;
   --wp--custom--border--subtle: rgba(50,44,36,0.08); --wp--custom--border--default: rgba(50,44,36,0.14); --wp--custom--border--strong: rgba(50,44,36,0.24);
 }
@@ -192,6 +196,10 @@ a { text-decoration: none; transition: color 0.2s; }
 [data-theme="dark"] {
   --wp--preset--color--base: #111111; --wp--preset--color--contrast: #E0DDD5; --wp--preset--color--secondary: #a2a09a; --wp--preset--color--muted: #595856; --wp--preset--color--ghost: rgba(224,221,213,0.09);
   --wp--preset--color--yellow: #FFEE58; --wp--preset--color--glass: rgba(255,255,255,0.025); --wp--preset--color--glass-border: rgba(255,255,255,0.055); --wp--preset--color--glass-hover: rgba(255,255,255,0.11);
+  --wp--preset--color--green: #22c55e; --wp--preset--color--purple: #7c3aed; --wp--preset--color--purple-light: #a78bfa;
+  --wp--preset--color--yellow-tint: rgba(255,238,88,0.07); --wp--preset--color--yellow-border: rgba(255,238,88,0.17);
+  --wp--preset--color--green-tint: rgba(34,197,94,0.07); --wp--preset--color--green-border: rgba(34,197,94,0.17);
+  --wp--preset--color--purple-tint: rgba(124,58,237,0.07); --wp--preset--color--purple-border: rgba(124,58,237,0.16);
   --wp--preset--color--cat-module: #5aaedc; --wp--preset--color--cat-skill: #6bba6e; --wp--preset--color--cat-agent: #d47898; --wp--preset--color--cat-workflow: #9b7dd4; --wp--preset--color--cat-protocol: #d4924c; --wp--preset--color--cat-changelog: #a8d44c;
   --wp--custom--border--subtle: rgba(255,255,255,0.055); --wp--custom--border--default: rgba(255,255,255,0.08); --wp--custom--border--strong: rgba(255,255,255,0.11);
 }
