@@ -131,7 +131,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'we-theme',
         get_theme_file_uri( 'assets/css/theme.css' ),
         [],
-        '0.2.0'
+        filemtime( get_theme_file_path( 'assets/css/theme.css' ) )
     );
 
     // Blog CSS — main site only
@@ -140,7 +140,7 @@ add_action( 'wp_enqueue_scripts', function () {
             'we-blog',
             get_theme_file_uri( 'assets/css/blog.css' ),
             [ 'we-theme' ],
-            '0.2.0'
+            filemtime( get_theme_file_path( 'assets/css/blog.css' ) )
         );
     }
 
@@ -149,7 +149,7 @@ add_action( 'wp_enqueue_scripts', function () {
         'we-theme-toggle',
         get_theme_file_uri( 'assets/js/theme-toggle.js' ),
         [],
-        '0.2.0',
+        filemtime( get_theme_file_path( 'assets/js/theme-toggle.js' ) ),
         false
     );
 
@@ -159,7 +159,7 @@ add_action( 'wp_enqueue_scripts', function () {
             'we-toc',
             get_theme_file_uri( 'assets/js/toc.js' ),
             [],
-            '0.2.0',
+            filemtime( get_theme_file_path( 'assets/js/toc.js' ) ),
             true
         );
     }
