@@ -166,8 +166,14 @@ add_action( 'wp_enqueue_scripts', function () {
 } );
 
 /**
- * Editor styles — load theme.css in the block editor too.
+ * Theme setup — editor styles + navigation menu locations.
  */
 add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/theme.css' );
+
+    register_nav_menus( [
+        'primary' => 'Primary Navigation',
+        'sidebar' => 'Sidebar Navigation',
+        'footer'  => 'Footer Navigation',
+    ] );
 } );
