@@ -172,8 +172,8 @@ add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/theme.css' );
 
     register_nav_menus( [
-        'primary' => 'Primary Navigation',
-        'sidebar' => 'Sidebar Navigation',
-        'footer'  => 'Footer Navigation',
+        'topbar'   => 'Header Topbar Navigation',
+        'tabstrip' => 'Header Tabstrip Navigation',
+        'footer'   => 'Footer Navigation',
     ] );
 } );
