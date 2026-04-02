@@ -172,8 +172,15 @@ add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/theme.css' );
 
     register_nav_menus( [
-        'topbar'   => 'Header Topbar Navigation',
-        'tabstrip' => 'Header Tabstrip Navigation',
-        'footer'   => 'Footer Navigation',
+        'topbar'           => 'Header Topbar Navigation',
+        'tabstrip'         => 'Header Tabstrip Navigation',
+        'footer'           => 'Footer Navigation',
+        'sidebar-pages'    => 'Sidebar: Pages',
+        'sidebar-started'  => 'Sidebar: Getting Started',
+        'sidebar-products' => 'Sidebar: Products',
+        'sidebar-concepts' => 'Sidebar: Core Concepts',
+        'sidebar-agents'   => 'Sidebar: For AI Agents',
+        'sidebar-policy'   => 'Sidebar: Policy',
+        'sidebar-reference'=> 'Sidebar: Reference Library',
     ] );
 } );
