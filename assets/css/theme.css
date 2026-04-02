@@ -67,6 +67,9 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-sidebar .wp-block-post-title a, .we-sidebar .we-nav-section a, .we-sidebar p a { display: block; text-decoration: none; color: var(--wp--preset--color--muted); transition: color 0.15s, background 0.15s; border-radius: 8px; padding: 6px 12px 6px 16px; margin: 0 8px; }
 .we-sidebar .wp-block-post-title a:hover, .we-sidebar .we-nav-section a:hover, .we-sidebar p a:hover { color: var(--wp--preset--color--contrast); background: var(--wp--preset--color--glass); }
 .we-sidebar a[aria-current="page"], .we-sidebar .current-menu-item a { color: var(--wp--preset--color--yellow) !important; background: rgba(201,168,76,0.08); border-radius: 8px; }
+.we-nav-sidebar { display: contents; }
+.we-nav-sidebar-list { list-style: none; margin: 0; padding: 0; }
+.we-nav-sidebar-list li { font-size: 13px; font-weight: 500; line-height: 1.5; margin: 0; font-family: var(--wp--preset--font-family--syne); }
 
 /* ═══ CATEGORY BADGES ═══ */
 .we-badge { font-family: var(--wp--preset--font-family--syne); font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25em 0.7em; border-radius: 4px; }
