@@ -149,8 +149,8 @@ a { text-decoration: none; transition: color 0.2s; }
 /* ═══ REUSABLE CARD HOVER EFFECTS ═══ */
 .we-card-lift { transition: border-color 0.2s, background 0.2s, transform 0.2s; }
 .we-card-lift:hover { border-color: var(--wp--preset--color--yellow); background: var(--wp--preset--color--glass-hover); transform: translateY(-2px); }
-.we-card-hover { transition: border-color 0.15s, background 0.15s; }
-.we-card-hover:hover { border-color: var(--wp--custom--border--strong); background: var(--wp--preset--color--glass); }
+.we-card-hover { background-color: var(--wp--preset--color--glass); border: 1px solid var(--wp--custom--border--subtle); border-radius: 8px; transition: border-color 0.15s, background-color 0.15s; }
+.we-card-hover:hover { border-color: var(--wp--preset--color--yellow); background-color: var(--wp--preset--color--glass-hover); }
 
 /* ═══ QUICK-LINK & RELATED CARDS ═══ */
 .we-quick-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
@@ -170,7 +170,9 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-stat-delete .we-stat-value{ color: var(--wp--preset--color--cat-agent); }
 
 /* ═══ ABILITY TABLE ═══ */
-.we-ability-table { border: 1px solid var(--wp--custom--border--default); border-radius: 8px; border-collapse: separate; border-spacing: 0; overflow: hidden; }
+.we-ability-table { border: 1px solid var(--wp--custom--border--default); border-radius: 8px; overflow: hidden; }
+.we-ability-table table { border-collapse: collapse; border-spacing: 0; }
+.we-ability-table table, .we-ability-table thead, .we-ability-table tbody, .we-ability-table tr, .we-ability-table th, .we-ability-table td { border: none; }
 .we-ability-table thead th { font-family: var(--wp--preset--font-family--syne); font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: var(--wp--preset--color--glass); padding: 0.625rem 0.875rem; color: var(--wp--preset--color--muted); border-bottom: 1px solid var(--wp--custom--border--default); }
 .we-ability-table td { padding: 0.7rem 0.875rem; border-bottom: 1px solid var(--wp--custom--border--subtle); font-size: 0.9375rem; }
 .we-ability-table tr:last-child td { border-bottom: none; }
