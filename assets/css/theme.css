@@ -58,7 +58,7 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-toc-rail::-webkit-scrollbar-track { background: transparent; }
 .we-toc-rail::-webkit-scrollbar-thumb { background: var(--wp--custom--border--subtle); border-radius: 3px; }
 .admin-bar .we-sidebar-col, .admin-bar .we-toc-rail { top: calc(112px + 32px) !important; }
-.subsite-4 .wp-block-post-content p, .subsite-4 .wp-block-post-content li, .subsite-4 .wp-block-post-content blockquote { font-family: var(--wp--preset--font-family--spectral); font-weight: 400; line-height: 1.72; }
+.we-site-knowledge .wp-block-post-content p, .we-site-knowledge .wp-block-post-content li, .we-site-knowledge .wp-block-post-content blockquote { font-family: var(--wp--preset--font-family--spectral); font-weight: 400; line-height: 1.72; }
 
 /* ═══ SIDEBAR ═══ */
 .we-sidebar p { font-size: 13px !important; font-weight: 500; line-height: 1.5; margin: 0; font-family: var(--wp--preset--font-family--syne); }
