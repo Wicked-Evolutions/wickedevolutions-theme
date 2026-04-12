@@ -119,6 +119,121 @@ add_action( 'wp_enqueue_scripts', function () {
     }
 } );
 
+/**
+ * Dynamic sidebar menu routing — gated by we_enable_dynamic_sidebar theme_mod.
+ */
+add_action( 'init', function () {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+
+    register_post_meta( 'page', 'sidebar_menu', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'integer',
+    ] );
+
+    register_term_meta( 'category', 'sidebar_menu', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'integer',
+    ] );
+} );
+
+function we_sidebar_menu_dropdown( $field_name, $selected_id ) {
+    $menus = wp_get_nav_menus();
+    ?>
+    <select name="<?php echo esc_attr( $field_name ); ?>" id="<?php echo esc_attr( $field_name ); ?>">
+        <option value=""><?php esc_html_e( '— No sidebar menu —' ); ?></option>
+        <?php foreach ( $menus as $menu ) : ?>
+            <option value="<?php echo esc_attr( $menu->term_id ); ?>" <?php selected( $selected_id, $menu->term_id ); ?>>
+                <?php echo esc_html( $menu->name ); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <?php
+}
+
+add_action( 'category_edit_form_fields', function ( $term ) {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    $value = (int) get_term_meta( $term->term_id, 'sidebar_menu', true );
+    ?>
+    <tr class="form-field">
+        <th><label for="sidebar_menu">Sidebar Menu</label></th>
+        <td>
+            <?php we_sidebar_menu_dropdown( 'sidebar_menu', $value ); ?>
+            <p class="description">Select a menu to display in the sidebar for posts in this category.</p>
+        </td>
+    </tr>
+    <?php
+} );
+
+add_action( 'category_add_form_fields', function () {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    ?>
+    <div class="form-field">
+        <label for="sidebar_menu">Sidebar Menu</label>
+        <?php we_sidebar_menu_dropdown( 'sidebar_menu', 0 ); ?>
+        <p class="description">Select a menu to display in the sidebar for posts in this category.</p>
+    </div>
+    <?php
+} );
+
+add_action( 'edited_category', function ( $term_id ) {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    if ( isset( $_POST['sidebar_menu'] ) ) {
+        update_term_meta( $term_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
+    }
+} );
+
+add_action( 'created_category', function ( $term_id ) {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    if ( isset( $_POST['sidebar_menu'] ) ) {
+        update_term_meta( $term_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
+    }
+} );
+
+add_action( 'add_meta_boxes', function () {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    add_meta_box(
+        'we_sidebar_menu',
+        'Sidebar Menu',
+        function ( $post ) {
+            wp_nonce_field( 'we_sidebar_menu', 'we_sidebar_menu_nonce' );
+            $value = (int) get_post_meta( $post->ID, 'sidebar_menu', true );
+            we_sidebar_menu_dropdown( 'sidebar_menu', $value );
+            echo '<p class="description">Select a menu to display in the sidebar for this page.</p>';
+        },
+        'page',
+        'side'
+    );
+} );
+
+add_action( 'save_post_page', function ( $post_id ) {
+    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
+        return;
+    }
+    if ( ! isset( $_POST['we_sidebar_menu_nonce'] ) || ! wp_verify_nonce( $_POST['we_sidebar_menu_nonce'], 'we_sidebar_menu' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    if ( isset( $_POST['sidebar_menu'] ) ) {
+        update_post_meta( $post_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
+    }
+} );
+
 add_action( 'after_setup_theme', function () {
     add_editor_style( 'assets/css/theme.css' );
 
