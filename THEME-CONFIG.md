@@ -14,7 +14,7 @@ When this theme is installed and activated on a brand-new WordPress site with no
 - No site-specific body class
 - No style variation force-merge (the theme's default `theme.json` applies)
 - No blog-specific CSS
-- No table-of-contents script
+- Table of contents on single posts with 2+ headings (default on; opt-out via category or post meta)
 
 This is what `abilitiesforai.io` and any third-party install gets out of the box.
 
@@ -26,7 +26,6 @@ Each capability is independently toggleable via `set_theme_mod()` (or the Custom
 |---|---|---|---|
 | `we_enable_blog_templates` | bool | `false` | Routes single posts to `single-post-blog` template and category archives to `category-blog` template (the WE blog design with sidebar). |
 | `we_enable_blog_css` | bool | `false` | Enqueues `assets/css/blog.css` after `assets/css/theme.css`. |
-| `we_enable_toc` | bool | `false` | Enqueues `assets/js/toc.js` for in-article table-of-contents rails. |
 | `we_style_variation` | string | `''` | Force-merges `styles/{value}.json` on top of `theme.json` via the `wp_theme_json_data_theme` filter. Empty string = no force-merge. The named file must exist in the theme's `styles/` directory. |
 | `we_enable_knowledge_frontpage` | bool | `false` | Routes the front page to the `front-page-knowledge` template. |
 | `we_default_color_scheme` | string | `'dark'` | Sets `<html data-default-theme="..."`> so the theme-toggle script applies the right scheme before first paint. Values: `'dark'`, `'light'`. Empty string suppresses the attribute entirely. |
@@ -69,7 +68,6 @@ The 4 WE subsites use these capability sets to reproduce their pre-`0.3.0` behav
 ```
 we_enable_blog_templates       = true
 we_enable_blog_css             = true
-we_enable_toc                  = false
 we_style_variation             = ''
 we_enable_knowledge_frontpage  = false
 we_default_color_scheme        = 'dark'
@@ -81,7 +79,6 @@ we_body_class                  = 'main'
 ```
 we_enable_blog_templates       = false
 we_enable_blog_css             = false
-we_enable_toc                  = true
 we_style_variation             = ''
 we_enable_knowledge_frontpage  = false
 we_default_color_scheme        = 'dark'
@@ -93,7 +90,6 @@ we_body_class                  = 'community'
 ```
 we_enable_blog_templates       = false
 we_enable_blog_css             = false
-we_enable_toc                  = true
 we_style_variation             = 'knowledge'
 we_enable_knowledge_frontpage  = true
 we_default_color_scheme        = 'light'
@@ -105,12 +101,49 @@ we_body_class                  = 'knowledge'
 ```
 we_enable_blog_templates       = false
 we_enable_blog_css             = false
-we_enable_toc                  = true
 we_style_variation             = ''
 we_enable_knowledge_frontpage  = false
 we_default_color_scheme        = 'dark'
 we_body_class                  = 'test1'
 ```
+
+## Table of Contents Control
+
+The TOC renders by default on any single post (via `single-post.html`) that has 2 or more H2/H3 headings. It can be disabled at two levels:
+
+| Meta field | Object type | Type | Default | Effect when `true` |
+|---|---|---|---|---|
+| `we_disable_toc` | term_meta (category) | boolean | `false` | Hides the TOC on all posts in this category. |
+| `we_disable_toc` | post_meta (post) | boolean | `false` | Hides the TOC on this specific post. |
+
+**Priority:** Post-level wins. If a post has `we_disable_toc = true`, the TOC is hidden regardless of category. If the post meta is unset/false, the category meta is checked — if any assigned category disables the TOC, it is hidden.
+
+Both fields have `show_in_rest: true` and are accessible in the block editor sidebar and via the abilities API:
+
+```
+mcp__wordpress__meta-update-post-meta  site=<site>  post_id=123  key=we_disable_toc  value=true
+mcp__wordpress__meta-update-term-meta  site=<site>  term_id=45   key=we_disable_toc  value=true
+```
+
+**Admin UI:** Checkbox on category add/edit screens. Meta box in the post editor sidebar.
+
+## Dynamic Sidebar Menu
+
+Pages and categories can be assigned a sidebar navigation menu via the `sidebar_menu` meta field. When set, the menu renders in the sidebar via the `wickedevolutions/nav-sidebar-dynamic` pattern.
+
+| Meta field | Object type | Type | Default | Effect when set |
+|---|---|---|---|---|
+| `sidebar_menu` | post_meta (page) | integer | `0` | Renders the specified nav menu in the sidebar for this page. |
+| `sidebar_menu` | term_meta (category) | integer | `0` | Renders the specified nav menu in the sidebar for posts in this category. |
+
+Both fields have `show_in_rest: true` and are accessible via the abilities API:
+
+```
+mcp__wordpress__meta-update-post-meta  site=<site>  post_id=123  key=sidebar_menu  value=42
+mcp__wordpress__meta-update-term-meta  site=<site>  term_id=45   key=sidebar_menu  value=42
+```
+
+**Admin UI:** Dropdown on category add/edit screens. Meta box in the page editor sidebar.
 
 ## Body Class CSS Scoping
 
@@ -130,7 +163,6 @@ Every default is chosen so that an unconfigured install behaves like normal Word
 
 - **`we_enable_blog_templates = false`** — the blog templates are an opinionated WE design (sidebar, related posts, dense list view). A new install probably doesn't want them.
 - **`we_enable_blog_css = false`** — the blog CSS only matters if blog templates are also on.
-- **`we_enable_toc = false`** — the TOC script targets a specific in-article rail markup. A new install without that markup doesn't need the script.
 - **`we_style_variation = ''`** — force-merging a variation overrides the theme's default `theme.json`. A new install should get the default design system, not someone else's variation.
 - **`we_enable_knowledge_frontpage = false`** — the knowledge front-page template assumes a documentation-style information architecture. A new install probably has its own front page.
 - **`we_default_color_scheme = 'dark'`** — the WE design system is dark-first. The theme-toggle script lets users switch.

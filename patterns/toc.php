@@ -6,13 +6,22 @@
  * Inserter: false
  */
 
-if ( ! function_exists( 'we_theme_mod_bool' ) || ! we_theme_mod_bool( 'we_enable_toc' ) ) {
-    return;
-}
-
 $post = get_post();
 if ( ! $post ) {
     return;
+}
+
+if ( (bool) get_post_meta( $post->ID, 'we_disable_toc', true ) ) {
+    return;
+}
+
+$categories = get_the_category( $post->ID );
+if ( $categories ) {
+    foreach ( $categories as $cat ) {
+        if ( (bool) get_term_meta( $cat->term_id, 'we_disable_toc', true ) ) {
+            return;
+        }
+    }
 }
 
 // Cache headings globally so the pattern can render twice (desktop rail + mobile slot).

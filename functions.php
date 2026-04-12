@@ -108,15 +108,13 @@ add_action( 'wp_enqueue_scripts', function () {
         false
     );
 
-    if ( we_theme_mod_bool( 'we_enable_toc' ) ) {
-        wp_enqueue_script(
-            'we-toc',
-            get_theme_file_uri( 'assets/js/toc.js' ),
-            array(),
-            filemtime( get_theme_file_path( 'assets/js/toc.js' ) ),
-            true
-        );
-    }
+    wp_enqueue_script(
+        'we-toc',
+        get_theme_file_uri( 'assets/js/toc.js' ),
+        array(),
+        filemtime( get_theme_file_path( 'assets/js/toc.js' ) ),
+        true
+    );
 } );
 
 /**
@@ -134,6 +132,20 @@ add_action( 'init', function () {
         'show_in_rest' => true,
         'single'       => true,
         'type'         => 'integer',
+    ] );
+
+    register_post_meta( 'post', 'we_disable_toc', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'boolean',
+        'default'      => false,
+    ] );
+
+    register_term_meta( 'category', 'we_disable_toc', [
+        'show_in_rest' => true,
+        'single'       => true,
+        'type'         => 'boolean',
+        'default'      => false,
     ] );
 } );
 
@@ -211,6 +223,77 @@ add_action( 'save_post_page', function ( $post_id ) {
     if ( isset( $_POST['sidebar_menu'] ) ) {
         update_post_meta( $post_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
     }
+} );
+
+/**
+ * Table of Contents — opt-out controls.
+ * TOC renders by default on single posts with 2+ headings.
+ * Disable per-category (term_meta) or per-post (post_meta).
+ */
+add_action( 'category_edit_form_fields', function ( $term ) {
+    $value = (bool) get_term_meta( $term->term_id, 'we_disable_toc', true );
+    ?>
+    <tr class="form-field">
+        <th><label for="we_disable_toc">Table of Contents</label></th>
+        <td>
+            <label>
+                <input type="checkbox" name="we_disable_toc" id="we_disable_toc" value="1" <?php checked( $value ); ?>>
+                Disable table of contents
+            </label>
+            <p class="description">Hide the table of contents on posts in this category.</p>
+        </td>
+    </tr>
+    <?php
+} );
+
+add_action( 'category_add_form_fields', function () {
+    ?>
+    <div class="form-field">
+        <label>
+            <input type="checkbox" name="we_disable_toc" value="1">
+            Disable table of contents
+        </label>
+        <p class="description">Hide the table of contents on posts in this category.</p>
+    </div>
+    <?php
+} );
+
+add_action( 'edited_category', function ( $term_id ) {
+    update_term_meta( $term_id, 'we_disable_toc', isset( $_POST['we_disable_toc'] ) );
+} );
+
+add_action( 'created_category', function ( $term_id ) {
+    update_term_meta( $term_id, 'we_disable_toc', isset( $_POST['we_disable_toc'] ) );
+} );
+
+add_action( 'add_meta_boxes', function () {
+    add_meta_box(
+        'we_disable_toc',
+        'Table of Contents',
+        function ( $post ) {
+            wp_nonce_field( 'we_disable_toc', 'we_disable_toc_nonce' );
+            $value = (bool) get_post_meta( $post->ID, 'we_disable_toc', true );
+            ?>
+            <label>
+                <input type="checkbox" name="we_disable_toc" value="1" <?php checked( $value ); ?>>
+                Disable table of contents
+            </label>
+            <p class="description">Hides the TOC on this post, regardless of category setting.</p>
+            <?php
+        },
+        'post',
+        'side'
+    );
+} );
+
+add_action( 'save_post_post', function ( $post_id ) {
+    if ( ! isset( $_POST['we_disable_toc_nonce'] ) || ! wp_verify_nonce( $_POST['we_disable_toc_nonce'], 'we_disable_toc' ) ) {
+        return;
+    }
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+    update_post_meta( $post_id, 'we_disable_toc', isset( $_POST['we_disable_toc'] ) );
 } );
 
 add_action( 'after_setup_theme', function () {
