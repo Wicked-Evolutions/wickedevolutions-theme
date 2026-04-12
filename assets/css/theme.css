@@ -54,6 +54,12 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-toc-item a:hover { color: var(--wp--preset--color--contrast); }
 .we-toc-item a.active { color: var(--wp--preset--color--yellow); border-left-color: var(--wp--preset--color--yellow); }
 .we-toc-h3 a { padding-left: 1.5rem; font-size: 0.75rem; }
+.we-toc-back a { font-size: 0.75rem; color: var(--wp--preset--color--muted); margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--wp--custom--border--subtle); border-left: none; }
+.we-toc-back a:hover { color: var(--wp--preset--color--contrast); }
+.we-toc-toggle { display: none; background: none; border: 1px solid var(--wp--custom--border--subtle); border-radius: 6px; padding: 6px 12px; cursor: pointer; color: var(--wp--preset--color--muted); font-family: var(--wp--preset--font-family--jetbrains-mono); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; width: 100%; text-align: left; transition: border-color 0.15s, color 0.15s; align-items: center; justify-content: space-between; }
+.we-toc-toggle:hover { border-color: var(--wp--custom--border--strong); color: var(--wp--preset--color--contrast); }
+.we-toc-toggle svg { transition: transform 0.2s; }
+.we-toc-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
 .we-toc-rail::-webkit-scrollbar { width: 3px; }
 .we-toc-rail::-webkit-scrollbar-track { background: transparent; }
 .we-toc-rail::-webkit-scrollbar-thumb { background: var(--wp--custom--border--subtle); border-radius: 3px; }
@@ -230,8 +236,13 @@ a { text-decoration: none; transition: color 0.2s; }
 [data-theme="dark"] ::selection { background-color: var(--wp--preset--color--yellow); color: var(--wp--preset--color--base); }
 
 /* ═══ RESPONSIVE ═══ */
+.we-toc-mobile { display: none; }
 @media (max-width: 1280px) {
   .we-toc-rail { display: none !important; }
+  .we-toc-mobile { display: block; margin-bottom: 1.5rem; }
+  .we-toc-mobile .we-toc-toggle { display: flex; }
+  .we-toc-mobile .we-toc-list { display: none; margin-top: 0.75rem; }
+  .we-toc-mobile .we-toc-open .we-toc-list { display: block; }
   .wp-block-columns.we-page-columns > .wp-block-column.we-content-col { max-width: none !important; flex-grow: 1 !important; flex-basis: auto !important; padding: 20px 24px 80px !important; }
 }
 @media (max-width: 1024px) {
