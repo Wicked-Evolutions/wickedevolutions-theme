@@ -6,10 +6,6 @@
  * Inserter: false
  */
 
-if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-    return;
-}
-
 $sidebar_menu_id = 0;
 
 if ( is_singular( 'post' ) ) {

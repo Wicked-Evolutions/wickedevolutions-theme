@@ -120,13 +120,10 @@ add_action( 'wp_enqueue_scripts', function () {
 } );
 
 /**
- * Dynamic sidebar menu routing — gated by we_enable_dynamic_sidebar theme_mod.
+ * Dynamic sidebar menu routing.
+ * Always active — renders nothing until a sidebar_menu meta is assigned.
  */
 add_action( 'init', function () {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
-
     register_post_meta( 'page', 'sidebar_menu', [
         'show_in_rest' => true,
         'single'       => true,
@@ -155,9 +152,6 @@ function we_sidebar_menu_dropdown( $field_name, $selected_id ) {
 }
 
 add_action( 'category_edit_form_fields', function ( $term ) {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     $value = (int) get_term_meta( $term->term_id, 'sidebar_menu', true );
     ?>
     <tr class="form-field">
@@ -171,9 +165,6 @@ add_action( 'category_edit_form_fields', function ( $term ) {
 } );
 
 add_action( 'category_add_form_fields', function () {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     ?>
     <div class="form-field">
         <label for="sidebar_menu">Sidebar Menu</label>
@@ -184,27 +175,18 @@ add_action( 'category_add_form_fields', function () {
 } );
 
 add_action( 'edited_category', function ( $term_id ) {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     if ( isset( $_POST['sidebar_menu'] ) ) {
         update_term_meta( $term_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
     }
 } );
 
 add_action( 'created_category', function ( $term_id ) {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     if ( isset( $_POST['sidebar_menu'] ) ) {
         update_term_meta( $term_id, 'sidebar_menu', absint( $_POST['sidebar_menu'] ) );
     }
 } );
 
 add_action( 'add_meta_boxes', function () {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     add_meta_box(
         'we_sidebar_menu',
         'Sidebar Menu',
@@ -220,9 +202,6 @@ add_action( 'add_meta_boxes', function () {
 } );
 
 add_action( 'save_post_page', function ( $post_id ) {
-    if ( ! we_theme_mod_bool( 'we_enable_dynamic_sidebar' ) ) {
-        return;
-    }
     if ( ! isset( $_POST['we_sidebar_menu_nonce'] ) || ! wp_verify_nonce( $_POST['we_sidebar_menu_nonce'], 'we_sidebar_menu' ) ) {
         return;
     }
