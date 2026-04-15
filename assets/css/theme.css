@@ -1,5 +1,5 @@
 /*
- * Wicked Evolutions — Theme Effects v0.3.0
+ * Wicked Evolutions — Theme Effects v0.3.1
  * Effects-only CSS. Layout via theme.json + editor settings.
  */
 
@@ -38,6 +38,8 @@ a { text-decoration: none; transition: color 0.2s; }
 @media (max-width: 768px) { .we-tabstrip { display: none; } }
 
 /* ═══ 3-COLUMN DOCS LAYOUT ═══ */
+main.we-has-sticky-columns { padding-top: 0; }
+main.we-has-sticky-columns .we-content-col { padding-top: var(--wp--preset--spacing--50); }
 .we-page-columns { margin: 0 !important; padding: 0 !important; gap: 0 !important; }
 :where(.wp-block-columns).we-page-columns { margin-bottom: 0 !important; }
 .we-page-columns .wp-block-post-title, .we-page-columns h1 { font-size: clamp(1.7rem, 3vw, 2.4rem) !important; line-height: 1.08; }
