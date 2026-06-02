@@ -57,14 +57,7 @@
             "fontFamilies": [
                 { "fontFamily": "Syne, sans-serif", "name": "Syne", "slug": "syne", "fontFace": [{ "fontFamily": "Syne", "fontWeight": "400 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Syne-Variable.woff2"] }] },
                 { "fontFamily": "Manrope, system-ui, sans-serif", "name": "Manrope", "slug": "manrope", "fontFace": [{ "fontFamily": "Manrope", "fontWeight": "200 800", "fontStyle": "normal", "src": ["file:./assets/fonts/Manrope-Variable.woff2"] }] },
-                { "fontFamily": "'JetBrains Mono', monospace", "name": "JetBrains Mono", "slug": "jetbrains-mono", "fontFace": [{ "fontFamily": "JetBrains Mono", "fontWeight": "400 700", "fontStyle": "normal", "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"] }] },
-                { "fontFamily": "'Spectral', Georgia, 'Times New Roman', serif", "name": "Spectral", "slug": "spectral", "fontFace": [
-                    { "fontFamily": "Spectral", "fontWeight": "300", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-300.woff2"] },
-                    { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-regular.woff2"] },
-                    { "fontFamily": "Spectral", "fontWeight": "400", "fontStyle": "italic", "src": ["file:./assets/fonts/spectral-v13-latin-italic.woff2"] },
-                    { "fontFamily": "Spectral", "fontWeight": "500", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-500.woff2"] },
-                    { "fontFamily": "Spectral", "fontWeight": "600", "fontStyle": "normal", "src": ["file:./assets/fonts/spectral-v13-latin-600.woff2"] }
-                ] }
+                { "fontFamily": "'JetBrains Mono', monospace", "name": "JetBrains Mono", "slug": "jetbrains-mono", "fontFace": [{ "fontFamily": "JetBrains Mono", "fontWeight": "400 700", "fontStyle": "normal", "src": ["file:./assets/fonts/JetBrainsMono-Variable.woff2"] }] }
             ]
         },
         "spacing": {
