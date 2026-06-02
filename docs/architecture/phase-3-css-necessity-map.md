@@ -138,8 +138,7 @@ piece into Playground and **proved it impossible**: **`core/column` does not sup
 sticky**, so the column's `position` attribute is inert in every value form — there is no
 block-support serialization to write, and the CSS is necessarily the canonical source (already
 tokenized). See [`phase-3-sticky-top-lift-finding.md`](phase-3-sticky-top-lift-finding.md).
-(The broader padding/sizing lift is moot for the same reason — these columns expose no native
-position/spacing support that would let CSS be deleted; `we-content-col` width remains #95.)
+(The sticky-position piece is resolved as impossible for `core/column`; this finding does not settle the separate content-width / padding / sizing questions. `we-content-col` width remains #95, and any non-position layout cleanup should stay in its owning follow-up.)
 
 ## 8. Parity verification
 
