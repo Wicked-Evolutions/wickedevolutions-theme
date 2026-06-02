@@ -67,7 +67,7 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-toc-rail::-webkit-scrollbar { width: 3px; }
 .we-toc-rail::-webkit-scrollbar-track { background: transparent; }
 .we-toc-rail::-webkit-scrollbar-thumb { background: var(--wp--custom--border--subtle); border-radius: 3px; }
-.admin-bar .we-sidebar-col, .admin-bar .we-toc-rail { top: calc(var(--wp--custom--layout--sticky-top) + 32px) !important; }
+.admin-bar .we-sidebar-col, .admin-bar .we-toc-rail { top: calc(var(--wp--custom--layout--sticky-top) + 32px); }
 .we-site-knowledge .wp-block-post-content p, .we-site-knowledge .wp-block-post-content li, .we-site-knowledge .wp-block-post-content blockquote { font-family: var(--wp--preset--font-family--spectral); font-weight: 400; line-height: 1.72; }
 
 /* ═══ SIDEBAR ═══ */
