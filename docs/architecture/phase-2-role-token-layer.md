@@ -6,8 +6,10 @@
 > [`phase-2-token-foundation-notes.md` §5](phase-2-token-foundation-notes.md) (the
 > earlier Spectral slice unblocked this; it did not decide it).
 > **Status:** source + docs only. `theme.json`, `styles/knowledge.json`, and the
-> `templates/`/`parts/`/`patterns/` markup that *binds* to tokens. No CSS, JS, or PHP
-> changes. No new design values.
+> `templates/`/`parts/`/`patterns/` markup that *binds* to tokens. No CSS or JS edits and
+> no PHP logic changes; the changed `patterns/*.php` files are touched only as saved block
+> markup (a `jetbrains-mono → mono` token swap inside their pattern HTML), not as runtime
+> PHP. No new design values.
 > **Mode:** repo-source + docs only. No live mutation, no deploy. One read-only Abilities
 > pass (`themes/design-snapshot`) captured the deployed baseline for parity.
 > **Date:** 2026-06-02 · **Branch:** `v0.4-token-foundation` · **Issue:** #93
@@ -179,9 +181,12 @@ verbatim (already role/scale-portable; spec rows 2, 3).
 
 ## 6. Scope boundaries (explicitly not done)
 
-- **No CSS / JS / PHP edits.** `assets/css/theme.css` (incl. `[data-theme]` blocks,
-  `.we-site-knowledge … --spectral`) and `blog.css` `--cat-accent` are tier-9 and remain
-  off-limits this phase (spec §6).
+- **No CSS or JS edits, and no PHP *logic* changes.** `assets/css/theme.css` (incl.
+  `[data-theme]` blocks, `.we-site-knowledge … --spectral`) and `blog.css` `--cat-accent`
+  are tier-9 and remain off-limits this phase (spec §6); `functions.php` and all runtime PHP
+  are untouched. The only `.php` files in the diff are the seven `patterns/nav-sidebar-*.php`,
+  changed solely as saved block markup (the `jetbrains-mono → mono` / `has-jetbrains-mono-
+  font-family → has-mono-font-family` token swap in their pattern HTML), not as PHP logic.
 - **No content-width work** — `wideSize` 1200/1140 reconciliation is Phase 4 / #95.
 - **No light/dark work** — `light-*` tokens, `[data-theme]`, `theme-toggle.js`,
   variation-activation PHP are untouched (phase-4-gated; spec §7).
