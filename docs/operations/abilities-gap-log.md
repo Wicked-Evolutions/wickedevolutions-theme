@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Track operations that **could not** be completed through the WordPress Abilities MCP (`mcp__wordpress__*`), or that required a non-ability workaround. Per the Abilities-first contract in [`CLAUDE.md`](../../CLAUDE.md), every such gap is recorded here. Gaps are the product roadmap — this log is the input to closing them.
+Track operations that **could not** be completed through the WordPress Abilities MCP (`mcp__wordpress__*`), or that required a non-ability workaround. Per the Abilities-first contract in [`AGENTS.md §2`](../../AGENTS.md), every such gap is recorded here. Gaps are the product roadmap — this log is the input to closing them.
 
 ## Rules
 
