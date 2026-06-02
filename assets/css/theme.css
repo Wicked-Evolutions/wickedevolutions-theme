@@ -50,7 +50,7 @@ a { text-decoration: none; transition: color 0.2s; }
 .we-sidebar-col::-webkit-scrollbar { width: 3px; }
 .we-sidebar-col::-webkit-scrollbar-track { background: transparent; }
 .we-sidebar-col::-webkit-scrollbar-thumb { background: var(--wp--custom--border--subtle); border-radius: 3px; }
-.wp-block-columns.we-page-columns > .wp-block-column.we-content-col { flex-basis: 800px !important; max-width: 800px !important; flex-grow: 0 !important; padding: 20px 48px 80px !important; }
+.wp-block-columns.we-page-columns > .wp-block-column.we-content-col { padding: 20px 48px 80px; }
 .we-toc-rail { position: sticky; top: var(--wp--custom--layout--sticky-top); align-self: flex-start; max-height: calc(100vh - var(--wp--custom--layout--sticky-top)); overflow-y: auto; font-family: var(--wp--preset--font-family--syne); padding: 20px 24px 48px 32px; }
 .we-toc-rail::before { content: "On this page"; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wp--preset--color--muted); display: block; margin-bottom: 0.75rem; font-family: var(--wp--preset--font-family--jetbrains-mono); }
 .we-toc-list { list-style: none; padding: 0; margin: 0; }
