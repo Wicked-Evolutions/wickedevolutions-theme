@@ -22,3 +22,13 @@ Track operations that **could not** be completed through the WordPress Abilities
 Row template:
 | 2026-06-02 | Short description of the operation | site key (e.g. wickedevolutions.com) | ability name or tool | What happened | Why it could not be done via Abilities | What was done instead (or "none") | Open / Resolved |
 -->
+
+## Track B — v0.4 theme deploy to WE (2026-06-02)
+
+Full Phase 2 theme change (26 files) deployed to `wickedevolutions` (production multisite) **via Abilities only — no SSH fallback needed.**
+
+| Date | Operation | Site | Ability/path used | Result | Gap | Status |
+|------|-----------|------|-------------------|--------|-----|--------|
+| 2026-06-02 | Deploy a multi-file theme change (26 files) to the active theme | wickedevolutions | 1× `filesystem/write-file` (theme.json) + 25× `filesystem/fetch-remote` (markup + fonts) | Success, file-by-file | **No atomic/transactional theme deploy or directory-sync ability.** A theme change = N individual filesystem calls; no single "deploy/sync theme" op (batch path unusable per adapter #104). Ergonomics gap. | Open (enhancement) |
+| 2026-06-02 | Write theme.json / templates / parts / patterns | wickedevolutions | `theme/update-asset` (rejected) → `filesystem/write-file` | Resolved | `theme/update-asset` is scoped to `assets/` + css/js/json/md only — cannot write theme root (theme.json) or templates/parts/patterns (.html/.php). Use `filesystem/write-file` (ABSPATH-relative). | Resolved (use write-file) |
+| 2026-06-02 | Deploy 5× binary fonts (~22KB each .woff2) | wickedevolutions | `filesystem/fetch-remote` from public raw URLs | Success, server-side | Prior gap (write-binary >15KB through-context) is bypassed: `fetch-remote` pulls binary server-side from a published URL. **This is the viable Abilities theme-deploy mechanism.** | Resolved (fetch-remote) |
