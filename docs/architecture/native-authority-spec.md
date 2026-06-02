@@ -96,8 +96,10 @@ Owns the design system core, and does so well:
 
 Two evidenced snags carried here (detailed in §4): the `light-*` palette overlaps the
 `[data-theme]` CSS override and the `knowledge.json` light palette (one "light" decision
-in three places); and the **Spectral `fontFace` `src` files do not exist** in
-`assets/fonts/`.
+in three places); and the **Spectral `fontFace` `src` files were missing from
+`assets/fonts/` in the repo working tree** while present and rendering on live
+wickedevolutions.com — a repo↔live asset gap, **resolved by committing the bundled files
+(preserving Spectral), not by removing it** (§4 row 7, §7). Spectral is brand typography.
 
 ### 3.2 `styles/knowledge.json` (tier 3)
 
@@ -266,7 +268,7 @@ coordination is unresolved; **misplaced**: a lower tier owns what a higher tier 
 | 4 | Custom props: `lineHeight`, `letterSpacing`, `radius` | `theme.json` (2) | (2) | correct | `theme.json:86-88` | None. |
 | 5 | Element/base block styles (link, headings, code, quote, post-* …) | `theme.json` (2) | (2) | correct | `theme.json:91-119` | None — strong native placement. |
 | 6 | **Border tokens** (`subtle/default/strong`) | `theme.json` (2) **+** `theme.css` `[data-theme]` (9) **+** `knowledge.json` (3) | `theme.json` + variations (2/3) | review | `theme.json:85`, `theme.css:202,235`, `knowledge.json:55-60` | Decide single source under phase 2 token model; runtime override is a symptom of decision 8. |
-| 7 | **Spectral font faces point at missing files** | *(removed from `theme.json` + `knowledge.json`)* | (2/3) — Manrope body / Syne headings | **resolved** (`v0.4-token-foundation`) | Spectral `fontFamily` removed from `theme.json` + `styles/knowledge.json`; knowledge body `fontFamily` → `--…--manrope`, headings stay Syne. Residual inert `var(--…--spectral)` in `theme.css:69` + `THEME-CONFIG.md:154` left for phase-3 CSS promotion. See [`phase-2-token-foundation-notes.md`](phase-2-token-foundation-notes.md). | Done per §7 decision (remove for now), not commit-the-files. `theme.css`/doc residual deferred to phase 3 (CSS → `theme.json`). |
+| 7 | **Spectral `fontFace` files missing from repo (present on live)** | `theme.json` + `knowledge.json` reference Spectral; assets restored to `assets/fonts/` | (2/3) — Spectral preserved as brand body face / Syne headings | **resolved by preservation + asset commit** (`v0.4-token-foundation`) | Spectral is brand typography, live on wickedevolutions.com. The repo working tree was missing `spectral-v13-latin-*.woff2`; `theme.json` + `styles/knowledge.json` (restored from `origin/v0.4-native-foundation`) keep the `spectral` family (`theme.json:61-66`, `styles/knowledge.json:46-51`); knowledge body `fontFamily` stays `--…--spectral` (`styles/knowledge.json:69`), headings Syne; the five `woff2` files are added to `assets/fonts/`. `theme.css:69` + `THEME-CONFIG.md:154` references are now backed/valid. See [`phase-2-token-foundation-notes.md`](phase-2-token-foundation-notes.md). | Done per §7 (corrected): **preserve Spectral and add the assets to the repo**, restoring repo↔live parity — not removal. No CSS edits (off-limits this phase). |
 | 8 | **Light/dark runtime model** | `theme.css` `[data-theme]` overrides (9) + `theme-toggle.js` (9) + `language_attributes` filter (7) | Style variation / global styles (3) | misplaced | `theme.css:193-238`, `theme-toggle.js:1-21`, `functions.php:66-74` | Roadmap phase 4 decision (§5, §8). Headline finding — do not touch CSS until decided. |
 | 9 | "Light" encoded three ways | `theme.json` `light-*` (2) + `[data-theme="light"]` (9) + `knowledge.json` (3) | one mechanism at (3) | review | `theme.json:29-36`, `theme.css:194-224`, `knowledge.json:6-39` | Resolve as part of decision 8; pick one light source of truth. |
 | 10 | Knowledge style variation | `styles/knowledge.json` (3) | (3) | correct | `styles/knowledge.json:1-94` | Keep; reconcile activation (decision 11) and light model (8/9). |
@@ -303,7 +305,7 @@ The backlog below is **scoped to v0.4**; later bands are notes only.
 |---|---|---|---|
 | **Role/intent token model.** Audit `theme.json` presets for semantic role naming (surface / text / accent / border) vs raw values; decide the token vocabulary *before* migrating any CSS into it. | 2 | 1, 6, 14, 15 | Decision (vocabulary), no CSS deletion. |
 | **Tokenize repeated layout constants.** Sticky offset (`112px`), content gutter (`clamp(24px,5vw,56px)`), and a single reconciled `wideSize` as `theme.json` custom props. | 2 | 14, 15 | Promotion to tier 2. |
-| **Resolve Spectral font assets.** Remove the missing Spectral faces and repoint knowledge body typography to an existing font token. | 2 (token model hygiene) | 7 | **Implemented in `v0.4-token-foundation`**; no Spectral files ship in v0.4. |
+| **Resolve Spectral font assets.** Preserve the Spectral brand faces (live on wickedevolutions.com) and commit the bundled `woff2` files the theme already references, restoring repo↔live parity. | 2 (token model hygiene) | 7 | **Implemented in `v0.4-token-foundation`**; Spectral kept, five `spectral-v13-latin-*.woff2` files added to `assets/fonts/`. |
 | **Global CSS → `theme.json` candidates.** Identify values hard-coded in `theme.css` that a preset/setting should own (border tokens duplicated at runtime, layout sizing). Migrate **by promotion**, not hand-deletion, and only after rows above are decided. | 3 | 6, 13, 14 | Promotion to tier 2/3. |
 | **Light/dark / style-variation decision.** Decide whether dark-first + light is a style variation / global-styles mechanism (tier 3) rather than the `[data-theme]` CSS toggle + JS. Settle the "one light source of truth" question. | 4 | 8, 9, 10, 11 | **Headline decision**; gates any CSS light/dark cleanup. |
 
@@ -345,8 +347,8 @@ token-model phase must resolve because the knowledge variation depends on it.
   then-decide Abilities pass (roadmap §5.9; `AGENTS.md §2,§4`). The site is in read-only/
   inquiry mode; this phase makes **no** WordPress calls.
 - **Promotion, not expansion.** No new colors, fonts, spacing, or surfaces — this is a
-  placement refactor (roadmap §6). (Resolving the Spectral assets is *coherence*, not
-  expansion.)
+  placement refactor (roadmap §6). (Resolving the Spectral assets is *coherence/parity* —
+  preserving an existing brand font and restoring its repo↔live files — not expansion.)
 - **Public repo.** No secrets/local config enter any artifact (`AGENTS.md §3`).
 
 ---
@@ -372,12 +374,15 @@ deliberately left open.
   question and continues to gate phase 4 (rows 8, 9); no `[data-theme]` / CSS light-dark
   cleanup proceeds until it is decided.
 
-- **Spectral — Resolved: remove for now (open question 4, row 7).** v0.4 ships **no**
-  Spectral files. Phase 2 **removes the Spectral `fontFace` references** (`theme.json`,
-  `styles/knowledge.json`) and **replaces Spectral usages with existing font-family tokens**
-  (Syne / Manrope / JetBrains Mono), preserving the visual intent as closely as possible.
-  This supersedes the commit-vs-remove fork in row 7 and the §5 "Resolve Spectral" backlog
-  item: the chosen action is **removal**, not committing the missing `woff2` files.
+- **Spectral — Resolved: preserve (open question 4, row 7).** *(Corrected 2026-06-02 by
+  the Hermes/user checkpoint; supersedes the earlier "remove for now" reading.)* Spectral
+  is **live on wickedevolutions.com and part of the Wicked Evolutions brand typography**;
+  the live site is authoritative when repo and live diverge. v0.4 therefore **keeps** the
+  Spectral `fontFace` references (`theme.json`, `styles/knowledge.json`) and **commits the
+  bundled `spectral-v13-latin-*.woff2` files** the theme already references — the repo
+  working tree was merely missing them. This resolves the commit-vs-remove fork in row 7
+  and the §5 backlog item toward **preservation + asset commit**, not removal. No CSS is
+  edited (off-limits this phase).
 
 - **FluentCart — Resolved: out of native-core scope (open question 5).** FluentCart theming
   is **not** part of the native-core refactor. It is a **separate plugin/integration**
@@ -385,9 +390,10 @@ deliberately left open.
   nor maintains a FluentCart token bridge in this band. (Consistent with §6's bar on editing
   `theme.css` here.)
 
-Net effect on the v0.4 band: the Spectral action (remove), the token-naming framing
-(product-neutral), and the FluentCart boundary (excluded) are now settled, so phase 2 can
-proceed on those; **phase 4 remains gated** on the still-open light/dark decision.
+Net effect on the v0.4 band: the Spectral action (**preserve + commit the assets**), the
+token-naming framing (product-neutral), and the FluentCart boundary (excluded) are now
+settled, so phase 2 can proceed on those; **phase 4 remains gated** on the still-open
+light/dark decision.
 
 ---
 
@@ -417,10 +423,12 @@ question 1; per-question status is marked inline below.
 4. **Spectral fonts (gates phase 2).** Are the `spectral-v13-latin-*.woff2` files meant to
    ship (commit them) or was Spectral deprecated (remove the `fontFace`)? The knowledge
    variation's body font and `.we-site-knowledge` typography depend on the answer (row 7).
-   **Status (2026-06-02): Resolved — remove for now.** v0.4 ships no Spectral files; phase 2
-   removes the Spectral `fontFace` references and replaces Spectral usages with existing
-   font-family tokens, preserving visual intent (see §7). This narrows row 7's commit-vs-remove
-   fork to removal.
+   **Status (2026-06-02): Resolved — preserve and commit the assets.** *(Corrected
+   2026-06-02 by the Hermes/user checkpoint.)* Spectral is live on wickedevolutions.com and
+   part of the WE brand; the live site is authoritative. The repo working tree was missing
+   the bundled `woff2` files, so phase 2 **keeps** the Spectral `fontFace` references and
+   **commits the files** to restore repo↔live parity (see §7). This narrows row 7's
+   commit-vs-remove fork to **commit (preserve)**, not removal.
 5. **FluentCart placement (boundary question, surfaces in v0.4).** Does FluentCart theming
    belong in the **base theme** (a maintained tier-2/3 token bridge) or as a **scoped
    integration** (tier-9 last-mile, or a separate plugin/child concern)? The scoped
@@ -466,3 +474,50 @@ question 1; per-question status is marked inline below.
 **This phase's exit:** the inventory (§4), v0.4 backlog (§5), and open questions (§8)
 exist and are reviewable against the ladder. No source changed. Phase 2 (role token
 model) begins only after the §8 questions that gate it are answered.
+
+---
+
+## 10. Source protocol — native-core Claude print-mode handoffs
+
+Every native-core handoff prepared for Claude print-mode (or any non-interactive agent
+run) must cite evidence from **three sources**. Include each when relevant, and apply the
+conflict rule below when they disagree.
+
+1. **Live / read-only evidence (when relevant).** What the production site actually does.
+   The live site is **authoritative for visual/brand intent** when repo and live diverge
+   (`AGENTS.md`). Gathered read-only — no mutation, no deploy, no required WordPress call
+   beyond already-logged read-only inspection. *This branch:* wickedevolutions.com ships
+   the Spectral `woff2` files and renders Spectral; that live fact overrode the repo's
+   missing-files *symptom* and made "remove Spectral" wrong.
+
+2. **WordPress Developer Handbooks evidence.** The native mechanism, cited to a handbook
+   path, so the resolution sits at the correct authority tier instead of being invented.
+   Handbook sources used for the Spectral / font slice:
+   - `Wordpress Developer Handbooks/Theme Handbook/Global Settings and Styles (theme.json)/Settings/Typography.md`
+   - `Wordpress Developer Handbooks/Theme Handbook/Global Settings and Styles (theme.json)/Style Variations.md`
+   - `Wordpress Developer Handbooks/Theme Handbook/Global Settings and Styles (theme.json)/Settings/Settings Reference.md`
+
+   Handbook facts relied on here:
+   - **`fontFace` is for bundled web fonts** — declaring a `fontFace` tells WordPress to
+     register and serve a font the theme *ships*, rather than assume a system or remote
+     font. Keeping the Spectral `fontFace` is therefore the native way to bundle it.
+   - **`src` can use `file:./assets/fonts/*.woff2`** paths, resolved **relative to
+     `theme.json`**. So the existing Spectral `src` entries become valid the moment the
+     files are present in `assets/fonts/` — confirming "add the files" as the fix.
+   - **Each font family generates a `--wp--preset--font-family--{slug}` custom property** —
+     e.g. the `spectral` slug yields `var(--wp--preset--font-family--spectral)`, the token
+     consumed by the knowledge variation body and `theme.css`.
+   - **Style variations live in `/styles/*.json`** — `styles/knowledge.json` is the
+     tier-3 variation; it re-declares the same families and so must reference the same
+     backed assets.
+
+3. **Repo evidence.** What the source tree currently contains, cited to file:line.
+   *This branch:* `theme.json:61-66` and `styles/knowledge.json:46-51` declare the
+   Spectral faces; `styles/knowledge.json:69` sets the variation body to Spectral; the
+   five `assets/fonts/spectral-v13-latin-*.woff2` files are now present (added) — closing
+   the gap recorded in §3.1 and row 7.
+
+**Conflict rule.** When repo and live disagree on *visual/brand result*, **live wins** and
+the repo is corrected to match (here: keep Spectral, add the files). When the question is
+*where a decision should live*, the **handbook + authority ladder** (`AGENTS.md §1`, §2
+here) win. Repo evidence establishes the current state to reconcile — not the target.
