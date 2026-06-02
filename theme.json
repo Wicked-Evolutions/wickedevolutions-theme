@@ -93,7 +93,8 @@
             "border": { "subtle": "rgba(255,255,255,0.055)", "default": "rgba(255,255,255,0.08)", "strong": "rgba(255,255,255,0.11)" },
             "lineHeight": { "tight": "1.03", "heading": "1.12", "body": "1.82", "loose": "1.9" },
             "letterSpacing": { "tight": "-0.045em", "heading": "-0.03em", "label": "0.1em" },
-            "radius": { "card": "8px", "segment": "12px", "terminal": "14px", "pill": "100px" }
+            "radius": { "card": "8px", "segment": "12px", "terminal": "14px", "pill": "100px" },
+            "layout": { "stickyTop": "112px" }
         }
     },
     "styles": {
