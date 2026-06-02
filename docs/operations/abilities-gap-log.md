@@ -15,7 +15,7 @@ Track operations that **could not** be completed through the WordPress Abilities
 
 | Date | Operation attempted | Site key | Ability/tool attempted | Result | Gap | Fallback used | Status |
 |------|---------------------|----------|------------------------|--------|-----|---------------|--------|
-| | | | | | | | |
+| 2026-06-02 | Batch-read theme/menu/pattern abilities in one call (`themes/get-active`, `themes/list-mods`, `themes/design-snapshot`, `menus/list-locations`, `patterns/list`) | wickedevolutions | `mcp_adapter_batch_execute` | All names returned `Tool not found: ...`, despite the same names being valid (confirmed via discovery) and executing successfully one-by-one | Batch executor does not resolve ability names that individual execution resolves — batch path cannot run otherwise-valid abilities | Individual `mcp_adapter_execute_ability` calls (each succeeded) | Open |
 
 <!--
 Row template:
