@@ -47,6 +47,29 @@ gate for #94 is therefore:
 
 **Result:** `!important` 30 → 24 lines (15 occurrences removed); file integrity preserved (braces balanced). The remaining 24 are all justified below.
 
+### Tokenization scope — precise (sticky offset is *not yet* fully source-canonical)
+
+The token canonicalizes the **CSS-level** sticky offset only. To be exact about where `112px`
+still lives and why parity nonetheless holds:
+
+| Source of the sticky `top` | After this phase | Canonical to the token? |
+|---|---|---|
+| `theme.css` `.we-sidebar-col` / `.we-toc-rail` `top` + `max-height` calcs | `var(--wp--custom--layout--sticky-top)` | **yes** |
+| `theme.css` `.admin-bar …` offset | `calc(var(--…--sticky-top) + 32px)` (kept `!important`) | **yes** |
+| **Saved block markup** — `position.top:"112px"` on the toc column in `templates/single-post.html:89` **and** `templates/category.html:74` | **unchanged `112px` literal** | **no — deferred** |
+
+So `.we-sidebar-col` (no `position` attr → CSS-driven) and the admin-bar calc are fully
+token-driven, while the **toc rail's base `top`** is still a serialized **block-support**
+`112px` in two templates. WordPress's position support can inject that as an inline
+`top:112px` at render, which is exactly why the `.admin-bar` rule **keeps `!important`** (to
+beat that injected inline). Parity is therefore preserved — the literal and the token are the
+same value — but the toc-rail base `top` is **parity-safe, not yet source-canonical**.
+
+These two template literals are **intentionally left** for the block-attribute lift (§7):
+changing block-support serialization needs editor/render validation (block-validation risk)
+and can't be confirmed under the deploy-gate. They are *not* a missed tokenization — they are
+the one place the constant can only be promoted once the lift is verifiable.
+
 ## 4. Per-section classification (every rule region)
 
 | `theme.css` section | Bucket | Native home | Status / owning phase |
