@@ -28,6 +28,9 @@ wp-config.php
 .claude/CLAUDE.local.md
 .hermes/
 
+# IJFW local state (never commit)
+.ijfw/
+
 # Logs
 *.log
 logs/
