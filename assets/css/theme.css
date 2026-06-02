@@ -256,3 +256,38 @@ main.we-has-sticky-columns .we-content-col { padding-top: var(--wp--preset--spac
   .blog-post-cards { grid-template-columns: 1fr !important; }
   .we-page-columns { flex-direction: column; }
 }
+
+/* ═══ FLUENTCART ═══ */
+/* FluentCart adaptation to wickedevolutions-theme tokens. Replaces site-level
+   Customizer Additional CSS — applies to all products on all sites. */
+:root {
+  --fct-primary-text-color:            var(--wp--preset--color--contrast);
+  --fct-single-product-qty-text-color: var(--wp--preset--color--contrast);
+  --fct-secondary-text-color:          var(--wp--preset--color--secondary);
+  --fct-border-color:                  var(--wp--preset--color--ghost);
+  --fct-active-border-color:           var(--wp--preset--color--yellow);
+  --fct-single-product-qty-bg:         var(--wp--preset--color--ghost);
+  --fct-card-bg:                       var(--wp--preset--color--glass);
+}
+/* Default text for the checkout flow — many elements use color:inherit, so set the
+   root checkout container color explicitly. Mode-flipping for page-bg text. */
+.fct_checkout {
+  color: var(--wp--preset--color--contrast);
+}
+/* White-bg cards stay white in both modes; force always-dark text inside them. */
+.fct_checkout_billing_and_shipping,
+.fct_checkout_summary,
+.fct_checkout_payment_methods,
+.fct_checkout_shipping_methods,
+.fct_address_wrapper {
+  color: var(--wp--preset--color--light-contrast);
+  /* Override FluentCart's already-resolved --fct-checkout-* vars directly.
+     The --fct-* (user-override) layer is pre-resolved at :root by FluentCart,
+     so scoping the user layer doesn't propagate. Scope the consumed vars instead. */
+  --fct-checkout-primary-text-color:   var(--wp--preset--color--light-contrast);
+  --fct-checkout-secondary-text-color: var(--wp--preset--color--light-secondary);
+  --fct-checkout-input-text-color:     var(--wp--preset--color--light-contrast);
+}
+.fct-similar-product-list-container .fct-product-list-heading {
+  color: var(--wp--preset--color--contrast);
+}
