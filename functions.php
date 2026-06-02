@@ -3,7 +3,7 @@
  * Wicked Evolutions Theme Functions
  *
  * @package wickedevolutions
- * @version 0.3.0
+ * @version 0.3.1
  *
  * The theme is install-aware via theme_mods. See THEME-CONFIG.md.
  * No knowledge of the WE multisite is hardcoded — every capability
