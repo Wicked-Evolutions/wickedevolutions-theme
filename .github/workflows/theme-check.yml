@@ -1,0 +1,22 @@
+name: Theme Checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  theme-validate:
+    name: theme-validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON (theme.json + styles/*.json)
+        run: |
+          python3 -m json.tool theme.json >/dev/null
+          for f in styles/*.json; do [ -e "$f" ] && python3 -m json.tool "$f" >/dev/null; done
+      - name: Forbidden files absent
+        run: |
+          for f in .env wp-config.php .mcp.json .claude/settings.local.json; do
+            if [ -e "$f" ]; then echo "Forbidden file present: $f" >&2; exit 1; fi
+          done
