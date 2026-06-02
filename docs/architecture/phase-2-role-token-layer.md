@@ -97,11 +97,15 @@ verbatim (already role/scale-portable; spec rows 2, 3).
   meaning while looking right in each skin. Computed CSS is byte-identical to the previous
   direct references, so parity is **by construction**.
 - **Style variations replace preset arrays, so roles are mirrored in the variation.**
-  A variation's `settings` overrides `theme.json` and is saved to the DB (Handbook →
-  *Style Variations*); `styles/knowledge.json` already re-declares the **full** palette and
-  `fontFamilies` arrays, so the role presets are **added to `knowledge.json` too** —
-  otherwise they would not exist under the knowledge variation and its role bindings would
-  break.
+  A variation's `settings` overrides `theme.json` (Handbook → *Style Variations*);
+  `styles/knowledge.json` already re-declares the **full** palette and `fontFamilies`
+  arrays, so the role presets are **added to `knowledge.json` too** — otherwise they would
+  not exist under the knowledge variation and its role bindings would break. Note this
+  theme does **not** rely on native Site-Editor variation *selection* (which snapshots a
+  variation into a DB `wp_global_styles` user post): it activates the variation by reading
+  the file at runtime via the `wp_theme_json_data_theme` force-merge filter
+  (`functions.php:44-64`) — which is why source edits take effect on deploy, and also why
+  the deploy gate in §5 must still account for any user-origin DB customization.
 
 ## 4. Rebindings (what now points at roles)
 
@@ -113,15 +117,18 @@ verbatim (already role/scale-portable; spec rows 2, 3).
   body is the brand serif); `elements.heading` → `heading`; `elements.link` +
   `core/quote` → `accent-1` / `accent-1-tint`.
 - **Markup** (`templates/`, `parts/`, `patterns/`) — every saved font binding rebinds
-  name-slug → role-slug across all three serialization forms WordPress uses:
+  name-slug → role-slug across each serialization form WordPress uses:
   the block-comment attribute (`"fontFamily":"jetbrains-mono"` → `"mono"`), the
   preset-reference style (`var:preset|font-family|jetbrains-mono` → `…|mono`), the
   rendered inline style (`var(--wp--preset--font-family--jetbrains-mono)` → `…--mono`),
-  **and** the rendered class (`has-jetbrains-mono-font-family` → `has-mono-font-family`)
-  so each block-comment and its serialized HTML stay consistent (no editor block-validation
-  mismatch). `syne` → `heading`, `manrope` → `body`, `jetbrains-mono` → `mono`. No color
-  tokens are bound in markup (brand colors were already CSS-only), so no color rebinds were
-  needed there.
+  **and** the rendered class (`has-jetbrains-mono-font-family` → `has-mono-font-family`).
+  Where a block stored both a comment attribute and its rendered artifact, both were
+  updated so the pair stays consistent (no editor block-validation mismatch) — **with the
+  exception of the two pre-existing `core/group` quirks documented in §6, which never
+  stored the font-family artifact the comment implies; those were left as behaviour-identical
+  1:1 comment-slug swaps, not made newly consistent.** `syne` → `heading`,
+  `manrope` → `body`, `jetbrains-mono` → `mono`. No color tokens are bound in markup
+  (brand colors were already CSS-only), so no color rebinds were needed there.
 
 ## 5. Parity verification
 
@@ -136,12 +143,39 @@ verbatim (already role/scale-portable; spec rows 2, 3).
   `yellow #FFEE58`, `yellow-tint rgba(255,238,88,0.07)`, `green #22c55e`, `purple #7c3aed`;
   `syne Syne, sans-serif`, `manrope Manrope, system-ui, sans-serif`,
   `jetbrains-mono 'JetBrains Mono', monospace`, `spectral 'Spectral', Georgia, …`. Each
-  role added is a `var()` alias of exactly these, so computed CSS is unchanged.
-- **Deploy-gated step (not done, out of scope).** Verifying the *post-change* effective
-  `theme.json` on the live site requires a deploy; this slice makes no live mutation. The
-  parity argument above is the available verification for an undeployed source change. A
-  post-deploy `themes/get-theme-json` + `content/render-page` diff is the follow-up if/when
-  a deploy is authorized.
+  role added is a `var()` alias of exactly these, so computed CSS is unchanged. This
+  establishes parity by construction **at the theme + variation source layer**; *effective*
+  parity additionally requires the deploy gate below (which accounts for DB global-styles
+  state).
+- **Effective-parity is deploy-gated and depends on DB global-styles state.** Two facts
+  bound the claim:
+  1. *Source → effective on deploy.* The `knowledge` variation is applied by the
+     `wp_theme_json_data_theme` **force-merge** filter (`functions.php:44-64`), which reads
+     `styles/knowledge.json` **from disk on every request** and `update_with()`s it onto the
+     *theme* origin — confirmed live on `wicked-knowledge` (`we_style_variation = "knowledge"`,
+     `custom_css_post_id = -1`). So the role presets added to source reach the effective
+     theme JSON on deploy; this is **not** the native Site-Editor selection path (which would
+     snapshot the variation into a DB `wp_global_styles` user post that can then go stale).
+  2. *User origin can still shadow.* A user-origin `wp_global_styles` post — created only if
+     someone edited Global Styles in the Site Editor — outranks the theme origin. If such a
+     post redeclared `settings.typography.fontFamilies` / `settings.color.palette` without
+     the roles, `--wp--preset--font-family--mono` (etc.) would not be generated and
+     role-bound markup would fall back to the cascade. A read of theme mods alone cannot
+     fully rule this out.
+- **Post-deploy verification / migration gate (run per affected site — at minimum
+  `wickedevolutions` MAIN and `wicked-knowledge`).** This slice performs no live mutation;
+  run this when a deploy is authorized:
+  1. `themes/get-theme-json` (or `themes/design-snapshot`) → confirm the effective
+     `settings.typography.fontFamilies` includes `heading/body/mono/serif` and
+     `settings.color.palette` includes `accent-1`/`accent-1-tint`/`accent-2`/`accent-3`
+     under the **active** variation/global-styles stack.
+  2. If any are **absent**, a user-origin global-styles customization is shadowing the
+     theme/variation presets → reset / re-save / clear that `wp_global_styles` post so the
+     force-merged theme presets surface, then re-check.
+  3. `content/render-page` on a representative page (MAIN single post; a knowledge doc) →
+     diff against the pre-deploy baseline; confirm fonts/accents render identically.
+  Until step 1 passes on each site, treat parity as *source-verified only*, not
+  *effective-verified*.
 
 ## 6. Scope boundaries (explicitly not done)
 
@@ -156,6 +190,12 @@ verbatim (already role/scale-portable; spec rows 2, 3).
   (`category.html`, `single-post.html` breadcrumb) already stored their `<div>` without the
   font-family artifact the comment implies; this slice only swapped the comment slug 1:1
   (behaviour-identical) and did not "fix" the pre-existing gap (surgical-diff discipline).
+- **`theme.json` style refs kept as raw CSS `var(...)`, not `var:preset|…`.** The Handbook
+  prefers the `var:preset|…` syntax for `theme.json` styles, but the file's pre-existing
+  house style is raw `var(...)` throughout. Rewriting only the touched refs would create
+  intra-file inconsistency, and a full normalization would touch untouched lines beyond this
+  slice's surgical scope. Left as a possible future repo-wide standards cleanup (not a parity
+  or correctness issue — both syntaxes resolve identically at runtime).
 
 ## 7. Relationship to roadmap / spec / issue
 
