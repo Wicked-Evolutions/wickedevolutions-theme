@@ -104,7 +104,7 @@ in three places); and the **Spectral `fontFace` `src` files do not exist** in
 A single named style variation: a **light** palette (`base #F2EFE9`), Spectral as the
 body `fontFamily`, Syne for headings, and `custom.border` re-tinted for dark-on-light
 (`styles/knowledge.json:1-94`). Correct tier-3 placement for site-wide re-theming. It is
-**activated two ways** that must be reconciled (§4, §7):
+**activated two ways** that must be reconciled (§4, §8):
 
 1. Natively, WordPress would expose any `styles/*.json` as a user-selectable variation in
    the Site Editor.
@@ -170,7 +170,7 @@ placement:
   registration. Note: the theme enqueues **no** `landing-page.css` — that asset only
   exists as a runtime ability rule (§3.8).
 - **Variation force-merge** — `wp_theme_json_data_theme` (`functions.php:44-64`) — see
-  §3.2 / §4 / §7 (coexistence with native variation selection is an open question).
+  §3.2 / §4 / §8 (coexistence with native variation selection is an open question).
 - **Light/dark plumbing** — `language_attributes` adds `data-default-theme` from
   `we_default_color_scheme` (`functions.php:66-74`); part of the tier-9 CSS toggle
   mechanism (§4).
@@ -182,7 +182,7 @@ placement:
   nonces for sidebar-menu and TOC opt-out (`functions.php:152-297`). Correct tier-7
   (no native block-editor-only equivalent for term meta UI).
 - **`register_nav_menus`** — 10 locations incl. 7 `sidebar-*` (`functions.php:299-314`).
-  Tier-7 registration; the *set* of locations is site-IA-shaped (§7, roadmap §5.8).
+  Tier-7 registration; the *set* of locations is site-IA-shaped (§8, roadmap §5.8).
 
 ### 3.6 `assets/css/theme.css` (tier 9) — **do not edit this phase**
 
@@ -214,7 +214,7 @@ Category-accent system: `body.category-{slug} { --cat-accent: … }` for six **h
 site-specific category slugs** (`the-experiment`, `the-mirror`, `the-build`, `the-field`,
 `the-record`, `the-method`) plus blog component effects (`blog.css:13-67`). Enqueued only
 when `we_enable_blog_css` is on. The hard-coded slugs are **site IA encoded in base-theme
-CSS** (theme-vs-site boundary, roadmap §5.8 / §7), and the accent hexes overlap palette
+CSS** (theme-vs-site boundary, roadmap §5.8 / §8), and the accent hexes overlap palette
 tokens (tokenization candidate).
 
 ### 3.8 `assets/js/theme-toggle.js` and `assets/js/toc.js` (tier 9)
@@ -267,10 +267,10 @@ coordination is unresolved; **misplaced**: a lower tier owns what a higher tier 
 | 5 | Element/base block styles (link, headings, code, quote, post-* …) | `theme.json` (2) | (2) | correct | `theme.json:91-119` | None — strong native placement. |
 | 6 | **Border tokens** (`subtle/default/strong`) | `theme.json` (2) **+** `theme.css` `[data-theme]` (9) **+** `knowledge.json` (3) | `theme.json` + variations (2/3) | review | `theme.json:85`, `theme.css:202,235`, `knowledge.json:55-60` | Decide single source under phase 2 token model; runtime override is a symptom of decision 8. |
 | 7 | **Spectral font faces point at missing files** | `theme.json` (2) / `knowledge.json` (3) | (2/3) — but assets absent | misplaced / **needs verification** | `theme.json:61-67`, `knowledge.json:46-52`; `assets/fonts/` holds only Syne, Manrope, JetBrains Mono | Confirm intent: commit `spectral-v13-latin-*.woff2`, or remove/replace the `fontFace`. Impacts knowledge variation body font + `.we-site-knowledge` CSS. |
-| 8 | **Light/dark runtime model** | `theme.css` `[data-theme]` overrides (9) + `theme-toggle.js` (9) + `language_attributes` filter (7) | Style variation / global styles (3) | misplaced | `theme.css:193-238`, `theme-toggle.js:1-21`, `functions.php:66-74` | Roadmap phase 4 decision (§5, §7). Headline finding — do not touch CSS until decided. |
+| 8 | **Light/dark runtime model** | `theme.css` `[data-theme]` overrides (9) + `theme-toggle.js` (9) + `language_attributes` filter (7) | Style variation / global styles (3) | misplaced | `theme.css:193-238`, `theme-toggle.js:1-21`, `functions.php:66-74` | Roadmap phase 4 decision (§5, §8). Headline finding — do not touch CSS until decided. |
 | 9 | "Light" encoded three ways | `theme.json` `light-*` (2) + `[data-theme="light"]` (9) + `knowledge.json` (3) | one mechanism at (3) | review | `theme.json:29-36`, `theme.css:194-224`, `knowledge.json:6-39` | Resolve as part of decision 8; pick one light source of truth. |
 | 10 | Knowledge style variation | `styles/knowledge.json` (3) | (3) | correct | `styles/knowledge.json:1-94` | Keep; reconcile activation (decision 11) and light model (8/9). |
-| 11 | Variation **activation** mechanism | `wp_theme_json_data_theme` force-merge filter (7) + `we_style_variation` mod (8) | Native variation selection (3) +/or pinning at (7) | review | `functions.php:44-64`, `THEME-CONFIG.md` | Decide whether force-merge is needed alongside native Site-Editor selection, or pins installs intentionally (open question §7). |
+| 11 | Variation **activation** mechanism | `wp_theme_json_data_theme` force-merge filter (7) + `we_style_variation` mod (8) | Native variation selection (3) +/or pinning at (7) | review | `functions.php:44-64`, `THEME-CONFIG.md` | Decide whether force-merge is needed alongside native Site-Editor selection, or pins installs intentionally (open question §8). |
 | 12 | Template/archive/single structure | `templates/*.html` (4) | (4) | correct | `templates/` (12 files) | Keep; dedup is v0.5. |
 | 13 | 3-column docs **layout enforcement** | `theme.css` `!important` (9) | block layout attrs / `theme.json` (1/2) + templates (4) | misplaced | `theme.css:40-69`, `single-post.html:10-96` | Phase 3/6: lift sizing/sticky to block settings + tokens; CSS keeps effects only. |
 | 14 | Repeated layout constants (`top:112px`, gutter `clamp(24px,5vw,56px)`) | literals in `theme.css`/`toc.js`/templates (4/9) | `theme.json` `custom` (2) | review | `theme.css:47,52,68`, `toc.js:65`, `single-post.html:89`, `header.html:4`, `footer.html:2` | Phase 2: tokenize sticky offset + gutter as custom props. |
@@ -351,15 +351,61 @@ token-model phase must resolve because the knowledge variation depends on it.
 
 ---
 
-## 7. Open questions — require user / design decision before code
+## 7. Decision checkpoint — 2026-06-02
 
-These cannot be resolved from repo evidence alone and **gate** the relevant v0.4 phases:
+Four §8 open questions were taken to the user. The resolutions below are the canonical
+record. Where a decision narrows a fork already listed in §4/§5, this checkpoint
+**supersedes** that fork (the affected rows are not rewritten this phase). Light/dark is
+deliberately left open.
+
+- **Theme identity — Resolved (open question 6).** The theme stays a **Wicked Evolutions**
+  product — WE is the **primary** product/brand use case — but the v0.4+ goal is for it to
+  become **generic/reusable** enough for other consumers too. Consequence for v0.4: token
+  naming must **avoid unnecessary WE-only / site-IA coupling** (favor role/intent names)
+  while preserving WE as the primary use case. This sets direction for v0.4 token names; it
+  does not by itself pull site IA out of the base theme (that stays v0.6 work, rows 25, 26).
+
+- **Light/dark model — Unresolved, deferred (open question 1, phase-4 gated).** The user has
+  not yet decided whether light and dark are a **difference** (one or the other) or a
+  **combination**, nor how they relate. This is intentionally kept as a later design /
+  architecture question; **no decision is forced now.** Light/dark remains the headline open
+  question and continues to gate phase 4 (rows 8, 9); no `[data-theme]` / CSS light-dark
+  cleanup proceeds until it is decided.
+
+- **Spectral — Resolved: remove for now (open question 4, row 7).** v0.4 ships **no**
+  Spectral files. Phase 2 **removes the Spectral `fontFace` references** (`theme.json`,
+  `styles/knowledge.json`) and **replaces Spectral usages with existing font-family tokens**
+  (Syne / Manrope / JetBrains Mono), preserving the visual intent as closely as possible.
+  This supersedes the commit-vs-remove fork in row 7 and the §5 "Resolve Spectral" backlog
+  item: the chosen action is **removal**, not committing the missing `woff2` files.
+
+- **FluentCart — Resolved: out of native-core scope (open question 5).** FluentCart theming
+  is **not** part of the native-core refactor. It is a **separate plugin/integration**
+  handled as a scoped integration / PR / plugin concern; base native-core work neither adds
+  nor maintains a FluentCart token bridge in this band. (Consistent with §6's bar on editing
+  `theme.css` here.)
+
+Net effect on the v0.4 band: the Spectral action (remove), the token-naming framing
+(product-neutral), and the FluentCart boundary (excluded) are now settled, so phase 2 can
+proceed on those; **phase 4 remains gated** on the still-open light/dark decision.
+
+---
+
+## 8. Open questions — require user / design decision before code
+
+These cannot be resolved from repo evidence alone and **gate** the relevant v0.4 phases.
+The **2026-06-02 decision checkpoint** (§7) resolved questions 4, 5, and 6 and deferred
+question 1; per-question status is marked inline below.
 
 1. **Light/dark model (gates phase 4).** Should light/dark be a true tier-3 style
    variation / global-styles mechanism (editor-selectable, re-skinnable by role), or does
    the product *require* the instant client-side `[data-theme]` toggle with `localStorage`
    persistence and pre-paint default? If both, which is the **source of truth** and which
    is generated from it? Today it is encoded three ways (rows 8, 9).
+   **Status (2026-06-02): Open — deferred, phase-4 gated.** The user has not yet decided
+   whether light and dark are a difference (one or the other) or a combination, nor how they
+   relate; kept deliberately as a later design / architecture question. No decision is forced
+   now (see §7).
 2. **Role token vocabulary (gates phase 2).** What are the canonical role names —
    e.g. `surface` / `surface-raised` / `text` / `text-muted` / `accent` / `border-*`?
    Do category accents (`cat-*`) and FluentCart bridge vars fold into the role model or
@@ -371,20 +417,31 @@ These cannot be resolved from repo evidence alone and **gate** the relevant v0.4
 4. **Spectral fonts (gates phase 2).** Are the `spectral-v13-latin-*.woff2` files meant to
    ship (commit them) or was Spectral deprecated (remove the `fontFace`)? The knowledge
    variation's body font and `.we-site-knowledge` typography depend on the answer (row 7).
+   **Status (2026-06-02): Resolved — remove for now.** v0.4 ships no Spectral files; phase 2
+   removes the Spectral `fontFace` references and replaces Spectral usages with existing
+   font-family tokens, preserving visual intent (see §7). This narrows row 7's commit-vs-remove
+   fork to removal.
 5. **FluentCart placement (boundary question, surfaces in v0.4).** Does FluentCart theming
    belong in the **base theme** (a maintained tier-2/3 token bridge) or as a **scoped
    integration** (tier-9 last-mile, or a separate plugin/child concern)? The scoped
    FluentCart contrast branch/PR forces this question even though §6 forbids editing
    `theme.css` here. *(Decision only; no edit this phase.)*
+   **Status (2026-06-02): Resolved — out of native-core scope.** FluentCart theming is a
+   separate plugin/integration, handled as a scoped integration / PR / plugin concern, not
+   part of base native-core work (see §7).
 6. **Theme identity (frames the whole conversion).** Does this remain the bespoke *Wicked
    Evolutions* theme, or is the v0.4+ goal a **reusable, role-tokenized artifact** that WE
    is one consumer of? This changes how aggressively site IA (category slugs in `blog.css`
    row 26, the `sidebar-*` location set row 25, `we_body_class` scoping) is pushed out of
    the base theme in v0.6 — and whether v0.4 token names should be product-neutral now.
+   **Status (2026-06-02): Resolved — reusable, WE-primary.** The theme stays a Wicked
+   Evolutions product (the primary product/brand use case) and should also become
+   generic/reusable for other consumers; v0.4 token naming avoids unnecessary WE-only /
+   site-IA coupling while preserving WE as the primary use case (see §7).
 
 ---
 
-## 8. Relationship to the roadmap and the minimal plan
+## 9. Relationship to the roadmap and the minimal plan
 
 - **[`v0.4-native-core-refactor-roadmap.md`](../plans/v0.4-native-core-refactor-roadmap.md)
   — parent.** This document **is** roadmap **phase 1** (§5.1: "Write down, per surface,
@@ -401,11 +458,11 @@ These cannot be resolved from repo evidence alone and **gate** the relevant v0.4
   deferred: it carries the orphan-enqueue and version findings forward as inventory rows
   (29, 30) but does not act on them, and it extends the audit to every surface the minimal
   plan left open. Nothing here settles the broader token/variation/template/runtime/
-  boundary decisions — those are **opened** (not closed) as §5 backlog and §7 questions.
+  boundary decisions — those are **opened** (not closed) as §5 backlog and §8 questions.
 - **`AGENTS.md` — contract above both.** The §2 authority ladder is copied/mapped in §2
   here; all working discipline, Abilities-first, public-repo, and no-deploy rules apply
   unchanged.
 
-**This phase's exit:** the inventory (§4), v0.4 backlog (§5), and open questions (§7)
+**This phase's exit:** the inventory (§4), v0.4 backlog (§5), and open questions (§8)
 exist and are reviewable against the ladder. No source changed. Phase 2 (role token
-model) begins only after the §7 questions that gate it are answered.
+model) begins only after the §8 questions that gate it are answered.
