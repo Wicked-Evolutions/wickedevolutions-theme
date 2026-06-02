@@ -50,6 +50,33 @@ mechanism higher up.
 8. **Plugins / Abilities** — runtime/data operations and capabilities beyond the theme (see §2).
 9. **Custom CSS/JS** (`assets/`) — last-mile only, for effects; never for layout that block settings can own.
 
+**Reference for the mechanisms above:** the **WordPress Theme Handbook** is the authority for *how* each layer of this ladder works. Local agents read the offline mirror through the **mcp-obsidian** server:
+
+```
+# read a Handbook page
+read_file(vault: "Wordpress Developers Handbooks",
+          path: "Wordpress Developer Handbooks/Theme Handbook/Global Settings and Styles (theme.json)/Style Variations")
+
+# or search the Handbook
+search_content(vault: "Wordpress Developers Handbooks", query: "block stylesheets")
+```
+
+Public canonical: https://developer.wordpress.org/themes/. Consult it before improvising a native mechanism.
+
+## Sources of truth — design vs. native mechanism vs. current state
+
+Four sources, each authoritative for one thing only. Never let one stand in for another — in particular, **the live site is not the design authority**; it may be exactly what is being corrected.
+
+| Source | Authoritative for | Where |
+|---|---|---|
+| **Design prototypes** | Brand & visual design intent — what the theme must reproduce natively | `Wicked-Evolutions/wickedevolutions-prototypes` · https://wicked-evolutions.github.io/wickedevolutions-prototypes/ (e.g. `docs-prototype/`) |
+| **WordPress Theme Handbook** | The native mechanism — *how* to build each layer in §1 | mcp-obsidian vault "Wordpress Developers Handbooks" · https://developer.wordpress.org/themes/ |
+| **Live site** (Abilities MCP) | Current runtime state — what is deployed, what would break. **Not** a design authority. | Abilities MCP on the target site |
+| **This repo** | What the theme source currently declares | the working branch |
+
+**Before removing or repointing a brand/config asset** (fonts, palettes, enqueue rules) — especially headless/print-mode agents: the design **prototypes** decide whether an asset is intended, not the live site and not a missing file. A referenced-but-missing asset is a gap to fix *toward the prototype*, not proof the asset is unwanted. (The Spectral-font lesson: Spectral is brand typography in the prototype — restore it, don't delete it.) A PR comment is not a durable record; if a lesson emerges, file an issue and record the rule here.
+
+
 ## 2. Abilities MCP first
 
 All **live WordPress data/runtime operations** go through the Abilities MCP
