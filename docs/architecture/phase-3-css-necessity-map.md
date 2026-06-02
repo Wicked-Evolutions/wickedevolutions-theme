@@ -56,19 +56,25 @@ still lives and why parity nonetheless holds:
 |---|---|---|
 | `theme.css` `.we-sidebar-col` / `.we-toc-rail` `top` + `max-height` calcs | `var(--wp--custom--layout--sticky-top)` | **yes** |
 | `theme.css` `.admin-bar …` offset | `calc(var(--…--sticky-top) + 32px)` (kept `!important`) | **yes** |
-| **Saved block markup** — `position.top:"112px"` on the toc column in `templates/single-post.html:89` **and** `templates/category.html:74` | **unchanged `112px` literal** | **no — deferred** |
+| **Saved block markup** — `position.top:"112px"` on the toc column in `templates/single-post.html:89` **and** `templates/category.html:74` | **unchanged `112px` literal** | **n/a — inert** (see correction below) |
 
-So `.we-sidebar-col` (no `position` attr → CSS-driven) and the admin-bar calc are fully
-token-driven, while the **toc rail's base `top`** is still a serialized **block-support**
-`112px` in two templates. WordPress's position support can inject that as an inline
-`top:112px` at render, which is exactly why the `.admin-bar` rule **keeps `!important`** (to
-beat that injected inline). Parity is therefore preserved — the literal and the token are the
-same value — but the toc-rail base `top` is **parity-safe, not yet source-canonical**.
+> **Correction (2026-06-02, `v0.4-sticky-top-lift`, Playground-proven).** An earlier draft of
+> this note assumed the toc-rail `position.top:"112px"` is a live **block-support** value that
+> WordPress can inject as inline `top` — and that the `.admin-bar !important` exists to beat
+> that injection. **That is wrong.** Playground (WP 7.0) proves **`core/column` does not
+> support position sticky at all**, so the `position` attribute on these columns is **wholly
+> inert** (no `is-position-sticky`, no `position`/`top` rendered, in any value form). The
+> sticky behavior is **entirely CSS-driven** and already tokenized; the two literals are inert
+> metadata, never a serialization source. The `.admin-bar` `!important` is therefore
+> **superfluous** (the `.admin-bar .we-toc-rail` selector already out-specifies the base rule),
+> not "required to beat an injection." Full proof + decision in
+> [`phase-3-sticky-top-lift-finding.md`](phase-3-sticky-top-lift-finding.md).
 
-These two template literals are **intentionally left** for the block-attribute lift (§7):
-changing block-support serialization needs editor/render validation (block-validation risk)
-and can't be confirmed under the deploy-gate. They are *not* a missed tokenization — they are
-the one place the constant can only be promoted once the lift is verifiable.
+So `.we-sidebar-col` / `.we-toc-rail` `top` and the admin-bar calc are fully token-driven via
+CSS. The two template `position.top:"112px"` literals are **left as-is** (per that follow-up's
+task) but are **inert** — the CSS token is the sole canonical source. The block-attribute
+"lift" that §7 anticipated is **resolved as impossible** (column has no position support), not
+deferred.
 
 ## 4. Per-section classification (every rule region)
 
@@ -95,7 +101,7 @@ the one place the constant can only be promoted once the lift is verifiable.
 - **Nav/sidebar/component hovers + skins** (`we-topbar/we-tab/we-tabstrip` hover; `we-sidebar p/title/label`; `we-sidebar` active; `blog-post-card` hover; archive-row hover; `we-callout*` padding; `we-cat-dot a`): **component band (v0.5)** — most beat core-block inline styles; removed when these become block styles.
 - **`.we-page-columns … h1` clamp:** defensive contextual typography (kept).
 - **`.we-content-col` (×2 incl. responsive):** **content-width (#95)** — left byte-identical.
-- **`.admin-bar … { top }`:** genuinely required — must beat the toc-rail's block-support-**injected** inline `top` (position support is active; confirmed by `is-position-sticky` in the live render).
+- **`.admin-bar … { top }`:** kept this phase, but **superfluous** (corrected — see §3 note + [`phase-3-sticky-top-lift-finding.md`](phase-3-sticky-top-lift-finding.md)): `core/column` has no position support, so there is no injected inline `top` to beat; `.admin-bar .we-toc-rail` (0,2,0) already out-specifies the base `.we-toc-rail` (0,1,0). Harmless; a candidate to drop in the optional follow-up cleanup.
 - **`.blog-post-cards` grid (×2):** beats the query block's inline grid (component/blog band).
 - **`[data-theme] … .we-header` / sidebar active (×3):** **light/dark (#97)** — untouched.
 
@@ -124,16 +130,16 @@ bind a token, keeping raw `var()` only where genuinely CSS-level. Findings:
   slugs (`--…--heading`, `--…--accent-1`); deferred as cosmetic to avoid a large diff this
   phase.
 
-## 7. The deferred block-attribute lift (verify-gated)
+## 7. The block-attribute lift — RESOLVED: not possible for these columns
 
-Row 13's ideal end state moves the 3-column **sizing/sticky/padding** out of `theme.css`
-into per-column **block attributes** (tier 1) + `theme.json` (tier 2). This phase promoted
-the constant (tier 2) and removed the specificity escalation, leaving clean tier-9 layout
-rules. The remaining lift — writing the block-support serialization into the column blocks so
-the CSS rules can be deleted — is **not done blind**: it requires editor/render validation to
-serialize the supports byte-exactly (else block-validation breaks), which cannot be confirmed
-under the deploy-gate (live is v0.3.1; changes are undeployed). It is the concrete next action
-once a deploy-preview or Playground pass is authorized.
+Row 13's ideal end state would move the 3-column **sizing/sticky** out of `theme.css` into
+per-column **block attributes**. The follow-up slice `v0.4-sticky-top-lift` took the sticky
+piece into Playground and **proved it impossible**: **`core/column` does not support position
+sticky**, so the column's `position` attribute is inert in every value form — there is no
+block-support serialization to write, and the CSS is necessarily the canonical source (already
+tokenized). See [`phase-3-sticky-top-lift-finding.md`](phase-3-sticky-top-lift-finding.md).
+(The broader padding/sizing lift is moot for the same reason — these columns expose no native
+position/spacing support that would let CSS be deleted; `we-content-col` width remains #95.)
 
 ## 8. Parity verification
 
@@ -144,8 +150,10 @@ once a deploy-preview or Playground pass is authorized.
   rules, against columns whose only inline style is `flex-basis` (verified by reading the saved
   `<div>`s). Dead-code removal targeted a class no template applies.
 - **Abilities (read-only):** `themes/design-snapshot` baseline captured (deployed v0.3.1);
-  `content/render-page` baseline captured. Position support confirmed active in the live render
-  (`is-position-sticky`), which grounds the `!important` analysis above.
+  `content/render-page` baseline captured. The live render shows `is-position-sticky` — but
+  follow-up Playground proof (§7) established that comes from the **header Group**, not the
+  layout columns (`core/column` has no position support). The corrected `!important` analysis
+  is in §3/§4 + [`phase-3-sticky-top-lift-finding.md`](phase-3-sticky-top-lift-finding.md).
 - **Deploy-gated:** the *effective* before/after `render-page` diff on the changed CSS requires
   a deploy (no live mutation this phase) — same gate as Phase 2. Until then parity rests on the
   by-construction argument; the post-deploy `design-snapshot` + `render-page` compare is the
