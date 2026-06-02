@@ -2,6 +2,29 @@
 
 The theme adapts to whatever WordPress install it runs on. There is no hardcoded knowledge of the WE multisite network in the theme code. Each capability the theme provides is opt-in via a `theme_mod`. A fresh install with zero configuration renders as a normal WordPress site with the default WE design system.
 
+## Design Tokens — role layer (bind to roles, not names)
+
+`theme.json` exposes a two-layer token model. **Always bind templates, patterns, and block
+markup to the PRIMARY role tokens** so saved content survives rebrands and style variations.
+The SECONDARY tokens are kept as named swatches / alias targets — do not bind to them
+directly. (See [`docs/architecture/phase-2-role-token-layer.md`](docs/architecture/phase-2-role-token-layer.md).)
+
+| Layer | Tokens | Bind to these? |
+|---|---|---|
+| **Primary — font roles** | `heading` (Syne), `body` (Manrope), `mono` (JetBrains Mono), `serif` (Spectral) | **Yes** |
+| **Primary — color roles** | `base`, `contrast`, `secondary`, `muted`, `ghost`, `accent-1` (+`accent-1-tint`), `accent-2`, `accent-3` | **Yes** |
+| **Primary — scale** | spacing `10…80`, fluid font sizes `small…hero` | **Yes** |
+| **Secondary — brand/value** | `yellow`/`green`/`purple`(+`-light`/`-tint`/`-border`) — accent roles alias these | No (alias source only) |
+| **Secondary — category** | `cat-module … cat-changelog` (distinct semantic set, used by `blog.css`) | No |
+| **Secondary — font names** | `syne`/`manrope`/`jetbrains-mono`/`spectral` — registration layer the roles alias | No (alias source only) |
+
+Role colors/fonts are `var()` aliases of the secondary token (e.g.
+`--wp--preset--color--accent-1: var(--wp--preset--color--yellow)`), so they resolve to the
+right value in each context — including per style variation (under the `knowledge`
+variation, `accent-1` resolves to that skin's amber, `serif` is the body face). The
+`light-*` palette and the `[data-theme]` light/dark mechanism are a separate, still-open
+decision (phase 4) and are untouched here.
+
 ## Fresh-Install Contract
 
 When this theme is installed and activated on a brand-new WordPress site with no theme modifications set, you get:
