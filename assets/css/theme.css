@@ -3,7 +3,8 @@
  * Target: effects-only. Remaining non-effect rules are explicitly deferred and
  * classified in docs/architecture/phase-3-css-necessity-map.md:
  *   - light/dark [data-theme] token redefinition           -> #97 (Phase 4)
- *   - .we-content-col width / wideSize                      -> #95 (content-width)
+ *   - .we-content-col fixed width                          -> resolved by #103 (content column tracks theme.json contentSize via --wp--style--global--content-size; hardcoded 800px removed)
+ *   - docs band wideSize / remaining layout constants      -> #95 follow-up / design pass
  *   - component visual systems (badges/callouts/chips/etc.) -> v0.5 phase 6 (block styles)
  * Layout constants live in theme.json (e.g. --wp--custom--layout--sticky-top).
  */
@@ -43,14 +44,23 @@ a { text-decoration: none; transition: color 0.2s; }
 @media (max-width: 768px) { .we-tabstrip { display: none; } }
 
 /* ═══ 3-COLUMN DOCS LAYOUT ═══ */
-.we-page-columns { margin: 0; padding: 0; gap: 0; }
+/* The docs band width tracks theme.json contentSize, so the centred band has no slack (no TOC-edge
+   gap) and the Site Editor content-width control governs the middle column. The fixed "chrome"
+   around the content column is promoted to theme.json (settings.custom.layout.docsBandChrome*):
+     653 = sidebar 261 (incl 1px border) + toc 296 (incl padding) + content padding 96   (3-col)
+     357 = sidebar 261 + content padding 96                                              (2-col, no toc)
+   Keep these in sync with the markup column widths until the primitive token model lands
+   (#95 follow-up: sidebar/TOC/padding as tokens, widths off markup, band derived). */
+.we-page-columns { max-width: 100%; margin-left: auto; margin-right: auto; padding: 0; gap: 0; }
+.we-page-columns--3col { width: calc(var(--wp--custom--layout--docs-band-chrome-3-col) + var(--wp--style--global--content-size)); }
+.we-page-columns--2col { width: calc(var(--wp--custom--layout--docs-band-chrome-2-col) + var(--wp--style--global--content-size)); }
 .we-page-columns .wp-block-post-title, .we-page-columns h1 { font-size: clamp(1.7rem, 3vw, 2.4rem) !important; line-height: 1.08; }
 .wp-block-post-content .wp-block-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .we-sidebar-col { position: sticky; top: var(--wp--custom--layout--sticky-top); align-self: flex-start; max-height: calc(100vh - var(--wp--custom--layout--sticky-top)); overflow-y: auto; border-right: 1px solid var(--wp--custom--border--subtle); padding: 20px 0 48px 0; margin: 0; }
 .we-sidebar-col::-webkit-scrollbar { width: 3px; }
 .we-sidebar-col::-webkit-scrollbar-track { background: transparent; }
 .we-sidebar-col::-webkit-scrollbar-thumb { background: var(--wp--custom--border--subtle); border-radius: 3px; }
-.wp-block-columns.we-page-columns > .wp-block-column.we-content-col { flex-basis: 800px !important; max-width: 800px !important; flex-grow: 0 !important; padding: 20px 48px 80px !important; }
+.wp-block-columns.we-page-columns > .wp-block-column.we-content-col { flex-basis: var(--wp--style--global--content-size); max-width: var(--wp--style--global--content-size); flex-grow: 0; padding: 20px 48px 80px; }
 .we-toc-rail { position: sticky; top: var(--wp--custom--layout--sticky-top); align-self: flex-start; max-height: calc(100vh - var(--wp--custom--layout--sticky-top)); overflow-y: auto; font-family: var(--wp--preset--font-family--syne); padding: 20px 24px 48px 32px; }
 .we-toc-rail::before { content: "On this page"; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--wp--preset--color--muted); display: block; margin-bottom: 0.75rem; font-family: var(--wp--preset--font-family--jetbrains-mono); }
 .we-toc-list { list-style: none; padding: 0; margin: 0; }

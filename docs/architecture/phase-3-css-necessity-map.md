@@ -33,7 +33,7 @@ gate for #94 is therefore:
 | **token-value** | hard-coded constant a preset/custom-prop should own | **in-band** — the `112px` sticky offset promoted to `theme.json` |
 | **component visual system** | badges, callouts, chips, cards, stats, ability-table, nav skins | **deferred → v0.5 phase 6** (register as block styles; audit row 16) |
 | **light/dark token redefinition** | `[data-theme]` blocks re-declaring `--wp--preset--*` | **deferred → #97 / Phase 4** (rows 8/9; gated) |
-| **content-width** | `.we-content-col` width / `wideSize` | **deferred → #95 / Phase 4** |
+| **content-width** | `.we-content-col` width / `wideSize` | **`.we-content-col` fixed width RESOLVED by #103** (hardcoded `800px !important` removed; the content column now tracks `theme.json` `contentSize` via `--wp--style--global--content-size`, and the docs band tracks it too); docs-band `wideSize` / remaining constants → #95 follow-up |
 | **plugin-integration** | FluentCart / WooCommerce CSS | **n/a — none in the base stylesheet** (§5) |
 
 ## 3. What changed this phase
