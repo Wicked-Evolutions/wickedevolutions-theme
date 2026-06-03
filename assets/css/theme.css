@@ -3,7 +3,8 @@
  * Target: effects-only. Remaining non-effect rules are explicitly deferred and
  * classified in docs/architecture/phase-3-css-necessity-map.md:
  *   - light/dark [data-theme] token redefinition           -> #97 (Phase 4)
- *   - .we-content-col width / wideSize                      -> #95 (content-width)
+ *   - .we-content-col fixed width                          -> resolved by #103 (content-col fills; theme.json contentSize governs)
+ *   - docs band wideSize / remaining layout constants      -> #95 follow-up / design pass
  *   - component visual systems (badges/callouts/chips/etc.) -> v0.5 phase 6 (block styles)
  * Layout constants live in theme.json (e.g. --wp--custom--layout--sticky-top).
  */

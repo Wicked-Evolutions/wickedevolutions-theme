@@ -108,6 +108,7 @@ flagged for the design pass.
 - visual parity **except the intended wider docs column** ✓ (readable 644→832 on wide; sidebar/toc
   preserved; responsive breakpoints intact).
 - Site Editor **Content width control governs** the docs column ✓ (contentSize 600 → readable 600).
-- no regression elsewhere ✓ (blog explicit widths unaffected; index/page widen 800→832 by design).
+- no **unexpected** regression elsewhere ✓ (blog explicit widths unaffected; index/page widen
+  800→832 by **deliberate site-default choice** — see §6).
 - **Deploy-gated:** verified in ephemeral Playground (no live mutation). Effective live check is a
   post-deploy `design-snapshot` + `render-page` compare when authorized.
