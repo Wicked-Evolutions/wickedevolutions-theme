@@ -57,9 +57,10 @@ tracks `contentSize`.** Two parts:
    flex-grow: 0` (WP generates that var from `theme.json` `layout.contentSize`). The column is now
    832, token-driven, not a hardcoded `800px`.
 2. The centred docs band is sized to **exactly** the column sum so there is no slack (no gap) and it
-   still tracks the token: `.we-page-columns--3col { width: calc(653px + var(--…--content-size)) }`
-   (overhead 653 = sidebar 261 incl. 1px border + toc 296 incl. padding + content padding 96);
-   `--2col` (front page, no toc) = `calc(357px + var)`. `max-width:100%` + default `flex-shrink`
+   still tracks the token: `.we-page-columns--3col { width: calc(var(--wp--custom--layout--docs-band-chrome-3-col) + var(--…--content-size)) }`.
+   The fixed "chrome" is a **theme.json token** (`settings.custom.layout.docsBandChrome3Col = 653px`
+   = sidebar 261 incl. 1px border + toc 296 incl. padding + content padding 96), and
+   `docsBandChrome2Col = 357px` (front page, no toc). `max-width:100%` + default `flex-shrink`
    keep it graceful on narrow viewports. Editing `contentSize` resizes the column **and** the band
    together, so proportions never break and no gap opens.
 
@@ -71,8 +72,8 @@ is deterministic.)
 
 | File | Change |
 |---|---|
-| `theme.json` | `settings.layout.contentSize` **800 → 832** (the single source; `wideSize` stays 1140 site-default). |
-| `assets/css/theme.css` | `.we-content-col` width pointed at the token: `flex-basis/max-width: var(--wp--style--global--content-size); flex-grow:0` (was `800px !important`). `.we-page-columns` becomes a centred container (`max-width:100%; margin-inline:auto`) with `--3col`/`--2col` modifiers carrying the contentSize-tracking `width: calc(<overhead> + var)`. |
+| `theme.json` | `settings.layout.contentSize` **800 → 832** (the single source). `settings.custom.layout` gains **`docsBandChrome3Col: 653px`** + **`docsBandChrome2Col: 357px`** (emit `--wp--custom--layout--docs-band-chrome-3-col` / `…-2-col`) so the band-chrome constants live in theme.json, not as CSS magic numbers. |
+| `assets/css/theme.css` | `.we-content-col` width pointed at the token: `flex-basis/max-width: var(--wp--style--global--content-size); flex-grow:0` (was `800px !important`). `.we-page-columns` becomes a centred container (`max-width:100%; margin-inline:auto`) with `--3col`/`--2col` modifiers carrying `width: calc(var(--…--docs-band-chrome-{3,2}-col) + var(--…--content-size))`. |
 | `templates/single-post.html` | `post-content` `contentSize:"800px"` → **inherit**; columns block gains the `we-page-columns--3col` modifier; docs band `main` `wideSize` reverted **1500 → 1200** (the band is governed by the calc, not `wideSize`). |
 | `templates/front-page-knowledge.html` | `post-content` `contentSize:"800px"` → **inherit**; columns block gains the `we-page-columns--2col` modifier (2-col band, no toc). |
 
@@ -98,6 +99,12 @@ no gap.
 readable column to **exactly 700** *and* the band to **1353** (= calc(653+700)), with **sidebar 261 /
 toc 296 unchanged and gap 0**. So the Site-Editor Content-width control resizes the column and the
 band together — proportions hold, no gap.
+
+**front-page-knowledge (2-col, rendered — not "by construction"):** seeded a static knowledge front
+page (`we_enable_knowledge_frontpage=1`, sidebar menu assigned) and rendered `/`. `@1920` & `@1440`:
+band **1189** (= calc(357+832)), sidebar **261**, no toc, readable **832**, **right-edge gap 0**.
+Editability: `contentSize 700` → band **1057** (= calc(357+700)), readable **700**, sidebar 261,
+gap 0. The token vars resolve correctly (`--…--docs-band-chrome-3-col = 653px`, `…-2-col = 357px`).
 
 **Baseline comparison (origin/main, same rich content):** `@1920` readable 644 / sidebar 210 / toc
 249 (band capped at 1200, all flex-shrunk); `@1280` sidebar **122** — i.e. **identical** to this
